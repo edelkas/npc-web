@@ -1,0 +1,71 @@
+/* Horizontal tabs */
+.menu {
+ overflow: hidden;
+ border: 1px solid #ccc;
+ background-color: #f1f1f1;
+}
+.menu button {
+ background-color: inherit;
+ float: left;
+ border: none;
+ outline: none;
+ cursor: pointer;
+ padding: 14px 16px;
+ transition: 0s;
+}
+.menu button:hover {
+ background-color: #ddd;
+}
+.menu button.active {
+ background-color: #ccc;
+}
+.page {
+ display: none;
+ padding: 10px;
+ border: 1px solid #ccc;
+ border-top: none;
+}
+
+/* Listbox */
+.annotate {
+  font-style: italic;
+  color: #366ed4;
+}
+.listbox-area {
+  padding: 0px 10px;
+  background: #eee;
+  border: 1px solid #aaa;
+}
+.left-area, .right-area {
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 14px;
+  vertical-align: top;
+}
+.left-area {
+  padding-right: 10px;
+  width: 20%;
+  cursor: pointer;
+}
+.right-area {
+  padding-left: 10px;
+  width: 80%;
+}
+[role="listbox"] {
+  min-height: 18em;
+  padding: 0;
+  background: white;
+  border: 1px solid #aaa;
+  max-height: 18em;
+  overflow-y: auto;
+  position: relative;
+}
+[role="option"] {
+  display: block;
+  padding: 0 1em 0 0.5em;
+  position: relative;
+  line-height: 1.8em;
+}
+[role="option"].focused {
+  background: #bde4ff;
+}

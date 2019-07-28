@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<script src="script.js"></script>
+		<script src="jscolor.js"></script>
+		<script src="listbox.js"></script>
+		<script src="utils.js"></script>
+		<script src="listbox-scrollable.js"></script>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+	  <h1>N++ Palette Creator</h1>
+		<div class="menu">
+			<button class="tab" onclick="tab(event, 'Objects')" id="def">Objects</button>
+			<button class="tab" onclick="tab(event, 'Menu')">Menu</button>
+			<button class="tab" onclick="tab(event, 'Editor')">Editor</button>
+			<button class="tab" onclick="tab(event, 'Timebar')">Timebar</button>
+			<button class="tab" onclick="tab(event, 'Headbands')">Headbands</button>
+			<button class="tab" onclick="tab(event, 'Effects')">Effects</button>
+		</div>
+		<div id="Objects" class="page" style="display:none">
+			<div class="listbox-area">
+			  <div class="left-area">
+			    <ul id="list" tabindex="0" role="listbox" aria-labelledby="ss_elem">
+			      <li id="list_background" role="option">Background</li>
+			      <li id="list_ninja" role="option">Ninja</li>
+			      <li id="list_mine" role="option">Mine</li>
+						<li id="list_gold" role="option">Gold</li>
+						<li id="list_exitdoor" role="option">Exit door</li>
+						<li id="list_exitswitch" role="option">Exit switch</li>
+						<li id="list_regulardoor" role="option">Regular door</li>
+						<li id="list_lockeddoor" role="option">Locked door</li>
+						<li id="list_trapdoor" role="option">Trap door</li>
+						<li id="list_launchpad" role="option">Launchpad</li>
+						<li id="list_onewayplatform" role="option">Oneway platform</li>
+						<li id="list_chaingundrone" role="option">Chaingun drone</li>
+						<li id="list_laserdrone" role="option">Laser drone</li>
+						<li id="list_zapdrone" role="option">Zap drone</li>
+						<li id="list_chaserdrone" role="option">Chaser drone</li>
+						<li id="list_floorguard" role="option">Floorguard</li>
+						<li id="list_bounceblock" role="option">Bounce block</li>
+						<li id="list_rocket" role="option">Rocket</li>
+						<li id="list_gaussturret" role="option">Gauss turret</li>
+						<li id="list_thwump" role="option">Thwump</li>
+						<li id="list_evilninja" role="option">Evil ninja</li>
+						<li id="list_laserturret" role="option">Laser turret</li>
+						<li id="list_boostpad" role="option">Boost pad</li>
+						<li id="list_deathball" role="option">Deathball</li>
+						<li id="list_mini" role="option">Mini</li>
+						<li id="list_shovethwump" role="option">Shove thwump</li>
+			    </ul>
+			  </div>
+			</div>
+		</div>
+		<div id="Menu" class="page" style="display:none">
+			<div class="listbox-area">
+			  <div class="left-area">
+			    <ul id="list" tabindex="0" role="listbox" aria-labelledby="ss_elem">
+			      <li id="list_menus" role="option">Menus</li>
+			      <li id="list_tabs" role="option">Tabs</li>
+			      <li id="list_leaderboards" role="option">Leaderboards</li>
+						<li id="list_episodeslevels" role="option">Episodes / Levels</li>
+						<li id="list_pausemenu" role="option">Pause menu</li>
+						<li id="list_profile" role="option">Profile</li>
+						<li id="list_othertexts" role="option">Other texts</li>
+			    </ul>
+			  </div>
+			</div>
+		</div>
+		<div id="Editor" class="page" style="display:none">
+			<div class="listbox-area">
+			  <div class="left-area">
+			    <ul id="list" tabindex="0" role="listbox" aria-labelledby="ss_elem">
+			      <li id="list_editor_lines" role="option">Lines</li>
+			      <li id="list_editor_selections" role="option">Selections</li>
+			      <li id="list_editor_others" role="option">Others</li>
+			    </ul>
+			  </div>
+			</div>
+		</div>
+		<div id="Timebar" class="page" style="display:none">
+			<div class="listbox-area">
+			  <div class="left-area">
+			    <ul id="list" tabindex="0" role="listbox" aria-labelledby="ss_elem">
+			      <li id="list_timebar_solo" role="option">Solo timebar</li>
+			      <li id="list_timebar_hardcore" role="option">Hardcore timebar</li>
+			      <li id="list_timebar_race_1" role="option">Race timebar (P1)</li>
+						<li id="list_timebar_race_2" role="option">Race timebar (P2)</li>
+						<li id="list_timebar_race_3" role="option">Race timebar (P3)</li>
+						<li id="list_timebar_race_4" role="option">Race timebar (P4)</li>
+						<li id="list_timebar_others" role="option">Others</li>
+			    </ul>
+			  </div>
+			</div>
+		</div>
+		<div id="Headbands" class="page" style="display:none">
+			<div class="listbox-area">
+			  <div class="left-area">
+			    <ul id="list" tabindex="0" role="listbox" aria-labelledby="ss_elem">
+			      <li id="list_headbands" role="option">Headbands</li>
+			      <li id="list_headbands_unknown_1" role="option">Unknown</li>
+			      <li id="list_headbands_unknown_2" role="option">More unknown</li>
+						<li id="list_headbands_unknown_3" role="option">Even more unknown</li>
+			    </ul>
+			  </div>
+			</div>
+		</div>
+		<div id="Effects" class="page" style="display:none">
+			<div class="listbox-area">
+			  <div class="left-area">
+			    <ul id="list" tabindex="0" role="listbox" aria-labelledby="ss_elem">
+			      <li id="list_explosions" role="option">Explosions</li>
+			      <li id="list_zapping_drones" role="option">Drone zapping</li>
+			      <li id="list_zapping_floorguard" role="option">Floorguard zapping</li>
+						<li id="list_dust" role="option">Ground dust</li>
+			    </ul>
+			  </div>
+			</div>
+		</div>
+		<script> document.getElementById("def").click(); </script>
+		<button
+	    class="jscolor {valueElement:null,value:'66ccff'}"
+	    style="width:40px; height:40px;"></button>
+	</body>
+</html>
