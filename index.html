@@ -18,11 +18,12 @@
 			<button class="tab" onclick="tab(event, 'Timebar')">Timebar</button>
 			<button class="tab" onclick="tab(event, 'Headbands')">Headbands</button>
 			<button class="tab" onclick="tab(event, 'Effects')">Effects</button>
+			<button class="tab" onclick="tab(event, 'About')">About</button>
 		</div>
 		<div id="Objects" class="page" style="display:none">
 			<div class="listbox-area">
 			  <div class="left-area">
-			    <ul tabindex="0" role="listbox" aria-labelledby="ss_elem">
+			    <ul id="list_objects" tabindex="0" role="listbox" aria-labelledby="ss_elem">
 						<li id="list_background" role="option">Background</li>
 						<li id="list_ninja" role="option">Ninja</li>
 						<li id="list_mine" role="option">Mine</li>
@@ -51,12 +52,18 @@
 						<li id="list_shovethwump" role="option">Shove thwump</li>
 			    </ul>
 			  </div>
+				<div class="right-area">
+					<button
+				    class="jscolor {valueElement:null,value:'66ccff'}"
+				    style="width:40px; height:40px;">
+					</button>
+				</div>
 			</div>
 		</div>
 		<div id="Menu" class="page" style="display:none">
 			<div class="listbox-area">
 			  <div class="left-area">
-			    <ul tabindex="0" role="listbox" aria-labelledby="ss_elem">
+			    <ul id="list_menu" tabindex="0" role="listbox" aria-labelledby="ss_elem">
 						<li id="list_menus" role="option">Menus</li>
 						<li id="list_tabs" role="option">Tabs</li>
 						<li id="list_leaderboards" role="option">Leaderboards</li>
@@ -71,7 +78,7 @@
 		<div id="Editor" class="page" style="display:none">
 			<div class="listbox-area">
 			  <div class="left-area">
-			    <ul tabindex="0" role="listbox" aria-labelledby="ss_elem">
+			    <ul id="list_editor" tabindex="0" role="listbox" aria-labelledby="ss_elem">
 						<li id="list_editor_lines" role="option">Lines</li>
 						<li id="list_editor_selections" role="option">Selections</li>
 						<li id="list_editor_others" role="option">Others</li>
@@ -82,7 +89,7 @@
 		<div id="Timebar" class="page" style="display:none">
 			<div class="listbox-area">
 			  <div class="left-area">
-			    <ul tabindex="0" role="listbox" aria-labelledby="ss_elem">
+			    <ul id="list_timebar" tabindex="0" role="listbox" aria-labelledby="ss_elem">
 						<li id="list_timebar_solo" role="option">Solo timebar</li>
 						<li id="list_timebar_hardcore" role="option">Hardcore timebar</li>
 						<li id="list_timebar_race_1" role="option">Race timebar (P1)</li>
@@ -97,7 +104,7 @@
 		<div id="Headbands" class="page" style="display:none">
 			<div class="listbox-area">
 			  <div class="left-area">
-			    <ul tabindex="0" role="listbox" aria-labelledby="ss_elem">
+			    <ul id="list_headbands" tabindex="0" role="listbox" aria-labelledby="ss_elem">
 						<li id="list_headbands" role="option">Headbands</li>
 						<li id="list_headbands_unknown_1" role="option">Unknown</li>
 						<li id="list_headbands_unknown_2" role="option">More unknown</li>
@@ -109,7 +116,7 @@
 		<div id="Effects" class="page" style="display:none">
 			<div class="listbox-area">
 			  <div class="left-area">
-			    <ul tabindex="0" role="listbox" aria-labelledby="ss_elem">
+			    <ul id="list_effects" tabindex="0" role="listbox" aria-labelledby="ss_elem">
 						<li id="list_explosions" role="option">Explosions</li>
 						<li id="list_zapping_drones" role="option">Drone zapping</li>
 						<li id="list_zapping_floorguard" role="option">Floorguard zapping</li>
@@ -118,9 +125,16 @@
 			  </div>
 			</div>
 		</div>
+		<div id="About" class="page" style="display:none">
+			<h3>Eddy 2019</h3>
+		</div>
 		<script> document.getElementById("def").click(); </script>
-		<button
-	    class="jscolor {valueElement:null,value:'66ccff'}"
-	    style="width:40px; height:40px;"></button>
+		<footer>
+			<table>
+				<tr><td>Author:</td><td>Eddy</td></tr>
+				<tr><td>Created:</td><td>28/Jul/2019</td></tr>
+				<tr><td>Updated:</td><td>30/Jul/2019</td></tr>
+			</table>
+		</footer>
 	</body>
 </html>

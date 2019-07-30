@@ -68,3 +68,7 @@
 [role="option"].focused {
   background: #bde4ff;
 }
+/* Footer */
+footer {
+  font-size:75%;
+}
