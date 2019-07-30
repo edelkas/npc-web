@@ -4,8 +4,8 @@ function tab(item, type){
 	tabs = document.getElementsByClassName(type == "tab" ? "tab" : "item");
 	pages = document.getElementsByClassName(type == "tab" ? "page" : "section");
 	for (i=0;i<tabs.length;i++) {
-		pages[i].style.display = "none";
 		tabs[i].className = tabs[i].className.replace(" active", "");
+		pages[i].style.display = "none";
 	}
 	obj.style.display = "block";
 	obj.className += " active";

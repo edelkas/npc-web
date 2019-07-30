@@ -47,8 +47,9 @@
   cursor: pointer;
 }
 .right-area {
-  padding-left: 10px;
+  padding: 10px;
   width: 80%;
+  float: right;
 }
 [role="listbox"] {
   min-height: 18em;
@@ -71,4 +72,9 @@
 /* Footer */
 footer {
   font-size:75%;
+}
+/* Section */
+.section button{
+  width: 40px;
+  height: 40px;
 }
