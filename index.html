@@ -12,51 +12,59 @@
 	<body>
 	  <h1>N++ Palette Creator</h1>
 		<div class="menu">
-			<button class="tab" onclick="tab(event, 'Objects')" id="def">Objects</button>
-			<button class="tab" onclick="tab(event, 'Menu')">Menu</button>
-			<button class="tab" onclick="tab(event, 'Editor')">Editor</button>
-			<button class="tab" onclick="tab(event, 'Timebar')">Timebar</button>
-			<button class="tab" onclick="tab(event, 'Headbands')">Headbands</button>
-			<button class="tab" onclick="tab(event, 'Effects')">Effects</button>
-			<button class="tab" onclick="tab(event, 'About')">About</button>
+			<button class="tab" onclick="tab('Objects', 'tab')" id="def">Objects</button>
+			<button class="tab" onclick="tab('Menu', 'tab')">Menu</button>
+			<button class="tab" onclick="tab('Editor', 'tab')">Editor</button>
+			<button class="tab" onclick="tab('Timebar', 'tab')">Timebar</button>
+			<button class="tab" onclick="tab('Headbands', 'tab')">Headbands</button>
+			<button class="tab" onclick="tab('Effects', 'tab')">Effects</button>
+			<button class="tab" onclick="tab('About', 'tab')"><i>About</i></button>
 		</div>
 		<div id="Objects" class="page" style="display:none">
 			<div class="listbox-area">
 			  <div class="left-area">
 			    <ul id="list_objects" tabindex="0" role="listbox" aria-labelledby="ss_elem">
-						<li id="list_background" role="option">Background</li>
-						<li id="list_ninja" role="option">Ninja</li>
-						<li id="list_mine" role="option">Mine</li>
-						<li id="list_gold" role="option">Gold</li>
-						<li id="list_exitdoor" role="option">Exit door</li>
-						<li id="list_exitswitch" role="option">Exit switch</li>
-						<li id="list_regulardoor" role="option">Regular door</li>
-						<li id="list_lockeddoor" role="option">Locked door</li>
-						<li id="list_trapdoor" role="option">Trap door</li>
-						<li id="list_launchpad" role="option">Launchpad</li>
-						<li id="list_onewayplatform" role="option">Oneway platform</li>
-						<li id="list_chaingundrone" role="option">Chaingun drone</li>
-						<li id="list_laserdrone" role="option">Laser drone</li>
-						<li id="list_zapdrone" role="option">Zap drone</li>
-						<li id="list_chaserdrone" role="option">Chaser drone</li>
-						<li id="list_floorguard" role="option">Floorguard</li>
-						<li id="list_bounceblock" role="option">Bounce block</li>
-						<li id="list_rocket" role="option">Rocket</li>
-						<li id="list_gaussturret" role="option">Gauss turret</li>
-						<li id="list_thwump" role="option">Thwump</li>
-						<li id="list_evilninja" role="option">Evil ninja</li>
-						<li id="list_laserturret" role="option">Laser turret</li>
-						<li id="list_boostpad" role="option">Boost pad</li>
-						<li id="list_deathball" role="option">Deathball</li>
-						<li id="list_mini" role="option">Mini</li>
-						<li id="list_shovethwump" role="option">Shove thwump</li>
+						<li id="l00" role="option" class="item" onclick="tab('l00', '')">Background</li>
+						<li id="l01" role="option" class="item" onclick="tab('l01', '')">Ninja</li>
+						<li id="l02" role="option">Mine</li>
+						<li id="l03" role="option">Gold</li>
+						<li id="l04" role="option">Exit door</li>
+						<li id="l05" role="option">Exit switch</li>
+						<li id="l06" role="option">Regular door</li>
+						<li id="l07" role="option">Locked door</li>
+						<li id="l08" role="option">Trap door</li>
+						<li id="l09" role="option">Launchpad</li>
+						<li id="l10" role="option">Oneway platform</li>
+						<li id="l11" role="option">Chaingun drone</li>
+						<li id="l12" role="option">Laser drone</li>
+						<li id="l13" role="option">Zap drone</li>
+						<li id="l14" role="option">Chaser drone</li>
+						<li id="l15" role="option">Floorguard</li>
+						<li id="l16" role="option">Bounce block</li>
+						<li id="l17" role="option">Rocket</li>
+						<li id="l18" role="option">Gauss turret</li>
+						<li id="l19" role="option">Thwump</li>
+						<li id="l20" role="option">Evil ninja</li>
+						<li id="l21" role="option">Laser turret</li>
+						<li id="l22" role="option">Boost pad</li>
+						<li id="l23" role="option">Deathball</li>
+						<li id="l24" role="option">Mini</li>
+						<li id="l25" role="option">Shove thwump</li>
 			    </ul>
 			  </div>
 				<div class="right-area">
-					<button
-				    class="jscolor {valueElement:null,value:'66ccff'}"
-				    style="width:40px; height:40px;">
-					</button>
+					<div id="l00" class="section" style="display:none">
+						<button
+					    class="jscolor {valueElement:null,value:'ffffff'}"
+					    style="width:40px; height:40px;">
+						</button>
+					</div>
+					<div id="l01" class="section" style="display:none">
+						<button
+					    class="jscolor {valueElement:null,value:'000000'}"
+					    style="width:40px; height:40px;">
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -64,13 +72,13 @@
 			<div class="listbox-area">
 			  <div class="left-area">
 			    <ul id="list_menu" tabindex="0" role="listbox" aria-labelledby="ss_elem">
-						<li id="list_menus" role="option">Menus</li>
-						<li id="list_tabs" role="option">Tabs</li>
-						<li id="list_leaderboards" role="option">Leaderboards</li>
-						<li id="list_episodeslevels" role="option">Episodes / Levels</li>
-						<li id="list_pausemenu" role="option">Pause menu</li>
-						<li id="list_profile" role="option">Profile</li>
-						<li id="list_menu_others" role="option">Other texts</li>
+						<li id="l26" role="option">Menus</li>
+						<li id="l27" role="option">Tabs</li>
+						<li id="l28" role="option">Leaderboards</li>
+						<li id="l29" role="option">Episodes / Levels</li>
+						<li id="l30" role="option">Pause menu</li>
+						<li id="l31" role="option">Profile</li>
+						<li id="l32" role="option">Other texts</li>
 			    </ul>
 			  </div>
 			</div>
@@ -79,9 +87,9 @@
 			<div class="listbox-area">
 			  <div class="left-area">
 			    <ul id="list_editor" tabindex="0" role="listbox" aria-labelledby="ss_elem">
-						<li id="list_editor_lines" role="option">Lines</li>
-						<li id="list_editor_selections" role="option">Selections</li>
-						<li id="list_editor_others" role="option">Others</li>
+						<li id="l33" role="option">Lines</li>
+						<li id="l34" role="option">Selections</li>
+						<li id="l35" role="option">Others</li>
 			    </ul>
 			  </div>
 			</div>
@@ -90,13 +98,13 @@
 			<div class="listbox-area">
 			  <div class="left-area">
 			    <ul id="list_timebar" tabindex="0" role="listbox" aria-labelledby="ss_elem">
-						<li id="list_timebar_solo" role="option">Solo timebar</li>
-						<li id="list_timebar_hardcore" role="option">Hardcore timebar</li>
-						<li id="list_timebar_race_1" role="option">Race timebar (P1)</li>
-						<li id="list_timebar_race_2" role="option">Race timebar (P2)</li>
-						<li id="list_timebar_race_3" role="option">Race timebar (P3)</li>
-						<li id="list_timebar_race_4" role="option">Race timebar (P4)</li>
-						<li id="list_timebar_others" role="option">Others</li>
+						<li id="l36" role="option">Solo timebar</li>
+						<li id="l37" role="option">Hardcore timebar</li>
+						<li id="l38" role="option">Race timebar (P1)</li>
+						<li id="l39" role="option">Race timebar (P2)</li>
+						<li id="l40" role="option">Race timebar (P3)</li>
+						<li id="l41" role="option">Race timebar (P4)</li>
+						<li id="l42" role="option">Others</li>
 			    </ul>
 			  </div>
 			</div>
@@ -105,10 +113,10 @@
 			<div class="listbox-area">
 			  <div class="left-area">
 			    <ul id="list_headbands" tabindex="0" role="listbox" aria-labelledby="ss_elem">
-						<li id="list_headbands" role="option">Headbands</li>
-						<li id="list_headbands_unknown_1" role="option">Unknown</li>
-						<li id="list_headbands_unknown_2" role="option">More unknown</li>
-						<li id="list_headbands_unknown_3" role="option">Even more unknown</li>
+						<li id="l43" role="option">Headbands</li>
+						<li id="l44" role="option">Unknown</li>
+						<li id="l45" role="option">More unknown</li>
+						<li id="l46" role="option">Even more unknown</li>
 			    </ul>
 			  </div>
 			</div>
@@ -117,10 +125,10 @@
 			<div class="listbox-area">
 			  <div class="left-area">
 			    <ul id="list_effects" tabindex="0" role="listbox" aria-labelledby="ss_elem">
-						<li id="list_explosions" role="option">Explosions</li>
-						<li id="list_zapping_drones" role="option">Drone zapping</li>
-						<li id="list_zapping_floorguard" role="option">Floorguard zapping</li>
-						<li id="list_dust" role="option">Ground dust</li>
+						<li id="l47" role="option">Explosions</li>
+						<li id="l48" role="option">Drone zapping</li>
+						<li id="l49" role="option">Floorguard zapping</li>
+						<li id="l50" role="option">Ground dust</li>
 			    </ul>
 			  </div>
 			</div>
