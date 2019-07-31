@@ -48,6 +48,7 @@
 }
 .right-area {
   padding: 10px;
+  padding-top: 15px;
   width: 80%;
   float: right;
 }
@@ -74,7 +75,6 @@ footer {
   font-size:75%;
 }
 /* Section */
-.section button{
-  width: 40px;
-  height: 40px;
+.section input{
+  width: 60px;
 }
