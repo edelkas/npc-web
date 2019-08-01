@@ -1,3 +1,19 @@
+function create_buttons(){
+	var i, colors;
+	colors = objects["background"]
+	for (i=0;i<colors.length;i++){
+		var area = document.getElementById("i00");
+		var input = document.createElement("input");
+		var text = document.createElement("p");
+		input.className = "jscolor";
+		input.value = colors[i]["color"];
+		//text.innerHTML("hi");
+		area.appendChild(input);
+		area.appendChild(document.createElement("br"))
+		//area.appendChild(text);
+	}
+}
+
 function tab(item, type){
 	var i, tabs, pages, obj;
 	obj = document.getElementById(item);
