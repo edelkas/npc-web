@@ -4,13 +4,12 @@ function create_buttons(){
 	for (i=0;i<colors.length;i++){
 		var area = document.getElementById("i00");
 		var input = document.createElement("input");
-		var text = document.createElement("p");
+		var text = document.createTextNode(colors[i]["text"]);
 		input.className = "jscolor";
 		input.value = colors[i]["color"];
-		//text.innerHTML("hi");
 		area.appendChild(input);
-		area.appendChild(document.createElement("br"))
-		//area.appendChild(text);
+		area.appendChild(text);
+		area.appendChild(document.createElement("br"));
 	}
 }
 
