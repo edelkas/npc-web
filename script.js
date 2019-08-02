@@ -1,15 +1,26 @@
 function create_buttons(){
-	var i, colors;
-	colors = objects["background"]
-	for (i=0;i<colors.length;i++){
-		var area = document.getElementById("i00");
-		var input = document.createElement("input");
-		var text = document.createTextNode(colors[i]["text"]);
-		input.className = "jscolor";
-		input.value = colors[i]["color"];
-		area.appendChild(input);
-		area.appendChild(text);
-		area.appendChild(document.createElement("br"));
+	var objs = document.getElementsByClassName("item");
+	for (var i=0;i<objects.length;i++){
+		var id = objects[i].id;
+		var id_redux = id.slice(1, id.length);
+		if (id[0] != "o") { continue; }
+		if (!(id_redux in objects)) { continue; }
+		var colors = objects[id_redux];
+		var section = document.getElementById("Objects_Items");
+		var area = document.createElement("div");
+		area.id = "i" + id_redux;
+		area.className = "section";
+		area.style.display = "none";
+		for (var i=0;i<colors.length;i++){
+			var input = document.createElement("input");
+			var text = document.createTextNode(colors[i]["text"]);
+			input.className = "jscolor";
+			input.value = colors[i]["color"];
+			area.appendChild(input);
+			area.appendChild(text);
+			area.appendChild(document.createElement("br"));
+			section.appendChild(area);
+		}
 	}
 }
 
