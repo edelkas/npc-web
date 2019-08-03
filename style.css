@@ -57,7 +57,7 @@
   padding: 0;
   background: white;
   border: 1px solid #aaa;
-  max-height: 18em;
+  max-height: 24em;
   overflow-y: auto;
   position: relative;
 }
