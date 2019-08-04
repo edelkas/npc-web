@@ -1,12 +1,12 @@
 function create_buttons(){
 	var section = document.getElementById("Objects_Items");
-	var objs = ["background", "ninja", "entityMine", "entityGold", "entityDoorExit",
-	  "entityDoorExitSwitch", "entityDoorRegular", "entityDoorLocked",
-	  "entityDoorTrap", "entityLaunchPad", "entityOneWayPlatform",
-	  "entityDroneChaingun", "entityDroneLaser", "entityDroneZap",
-	  "entityDroneChaser", "entityFloorGuard", "entityBounceBlock",
-	  "entityRocket", "entityTurret", "entityThwomp", "entityEvilNinja",
-	  "entityDualLaser", "entityBoostPad", "entityBat",
+	var objs = ["background", "ninja", "entityMine", "entityGold",
+	  "entityDoorExit", "entityDoorExitSwitch", "entityDoorRegular",
+		"entityDoorLocked", "entityDoorTrap", "entityLaunchPad",
+		"entityOneWayPlatform", "entityDroneChaingun", "entityDroneLaser",
+		"entityDroneZap", "entityDroneChaser", "entityFloorGuard",
+		"entityBounceBlock", "entityRocket", "entityTurret", "entityThwomp",
+		"entityEvilNinja", "entityDualLaser", "entityBoostPad", "entityBat",
 	  "entityEyeBat", "entityShoveThwomp"];
 	for (var i=0;i<objs.length;i++){
 		var colors = objects[objs[i]];
@@ -35,8 +35,13 @@ function tab(item, type){
 	obj.style.display = "block";
 }
 
+function blobify(text){
+	var bytes = new Uint8Array(text.match(/.{2}/g).map(e => parseInt(e, 16)));
+	return new Blob([bytes], {type: "application/octet-stream"});
+}
+
 function download(){
-	var data = new Blob(["Hola"], {type: 'text/plain'});
+	var data = blobify("102030405060708090")
 	var file = window.URL.createObjectURL(data);
 	var link = document.getElementById("downloadlink");
   link.href = file;
