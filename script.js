@@ -28,16 +28,17 @@ function create_buttons(){
 }
 
 function tab(item, type){
-	var i, tabs, pages, obj;
+	var i, tabs, obj;
 	obj = document.getElementById(item);
-	tabs = document.getElementsByClassName(type == "tab" ? "tab" : "item");
-	pages = document.getElementsByClassName(type == "tab" ? "page" : "section");
-	for (i=0;i<tabs.length;i++) {
-		tabs[i].className = tabs[i].className.replace(" active", "");
-	}
-	for (i=0;i<pages.length;i++){
-		pages[i].style.display = "none";
-	}
+	tabs = document.getElementsByClassName(type == "tab" ? "page" : "section");
+	for (i=0;i<tabs.length;i++){ tabs[i].style.display = "none"; }
 	obj.style.display = "block";
-	obj.className += " active";
+}
+
+function download(){
+	var data = new Blob(["Hola"], {type: 'text/plain'});
+	var file = window.URL.createObjectURL(data);
+	var link = document.getElementById("downloadlink");
+  link.href = file;
+  link.click();
 }
