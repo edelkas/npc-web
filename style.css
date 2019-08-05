@@ -53,7 +53,7 @@
   float: right;
 }
 [role="listbox"] {
-  min-height: 18em;
+  min-height: 24em;
   padding: 0;
   background: white;
   border: 1px solid #aaa;

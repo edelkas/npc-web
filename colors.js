@@ -1,10 +1,10 @@
 var background = [
-  {text: "Tiles", color: "4D564F"},
-  {text: "Tile outline", color: "4D564F"},
-  {text: "Background", color: "87948C"},
-  {text: "?", color: "87948C"},
-  {text: "?", color: "87948C"},
-  {text: "Entity outline", color: "87948C"}
+  {text: "Tiles", color: "4F564D"},
+  {text: "Tile outline", color: "4F564D"},
+  {text: "Background", color: "8C9487"},
+  {text: "?", color: "8C9487"},
+  {text: "?", color: "8C9487"},
+  {text: "Entity outline", color: "8C9487"}
 ]
 var editor = [
   {text: "Regular grid lines", color: "A6AAA3"},

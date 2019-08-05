@@ -35,13 +35,25 @@ function tab(item, type){
 	obj.style.display = "block";
 }
 
+function  create_file(filename){
+	var n = objects[filename].length;
+	var file = "00000A000000000000000000" + "8001" + "40001800";
+	for (var i=0;i<64;i++){
+		for (var j=0;j<n;j++){
+			file += "BF" + objects[filename][j]["color"].match(/.{2}/g).reverse().join("");
+			if (i==0) {console.log(objects[filename][j]["color"].match(/.{2}/g).reverse().join(""));}
+		}
+	}
+	return file;
+}
+
 function blobify(text){
 	var bytes = new Uint8Array(text.match(/.{2}/g).map(e => parseInt(e, 16)));
 	return new Blob([bytes], {type: "application/octet-stream"});
 }
 
 function download(){
-	var data = blobify("102030405060708090")
+	var data = blobify(create_file("background"))
 	var file = window.URL.createObjectURL(data);
 	var link = document.getElementById("downloadlink");
   link.href = file;
