@@ -6,6 +6,8 @@
 		<script src="colors.js"></script>
 		<script src="script.js"></script>
 		<script src="jscolor.js"></script>
+		<script src="FileSaver.js"></script>
+		<script src="jszip.js"></script>
 		<script src="listbox.js"></script>
 		<script src="utils.js"></script>
 		<script src="listbox-scrollable.js"></script>
@@ -148,7 +150,7 @@
 		</div>
 		<div class="menu">
 			<button id="Load">Load palette</button>
-			<button id="Download" onclick="download()">Download palette</button>
+			<button id="Download" onclick="create_palette()">Download palette</button>
 		</div>
 		<a download="info" id="downloadlink" style="display: none"></a>
 		<script>document.getElementById("def").click();</script>

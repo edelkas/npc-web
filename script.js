@@ -35,27 +35,41 @@ function tab(item, type){
 	obj.style.display = "block";
 }
 
-function  create_file(filename){
-	var n = objects[filename].length;
-	var file = "00000A000000000000000000" + "8001" + "40001800";
-	for (var i=0;i<64;i++){
-		for (var j=0;j<n;j++){
-			file += "BF" + objects[filename][j]["color"].match(/.{2}/g).reverse().join("");
-			if (i==0) {console.log(objects[filename][j]["color"].match(/.{2}/g).reverse().join(""));}
-		}
-	}
-	return file;
-}
-
 function blobify(text){
 	var bytes = new Uint8Array(text.match(/.{2}/g).map(e => parseInt(e, 16)));
 	return new Blob([bytes], {type: "application/octet-stream"});
 }
 
-function download(){
+// Read the TGA specs to understand this function
+function create_file(name){
+	var i, j, n, w, f;
+	n = objects[name].length;
+	w = (64 * n).toString(16).padStart(4, '0').match(/.{2}/g).reverse().join('');
+	f = "00000A000000000000000000" + w + "40001800";
+	for (i=0;i<64;i++){
+		for (j=0;j<n;j++){
+			f += "BF" + objects[name][j]["color"].match(/.{2}/g).reverse().join("");
+		}
+	}
+	return f;
+}
+
+function create_palette(){
+	var objs = Object.keys(objects).map(o => blobify(create_file(o)));
+	var zip = new JSZip();
+	for (var i=0;i<objs.length;i++){ zip.file(Object.keys(objects)[i] + ".tga", objs[i]); }
+	zip.generateAsync({type:"blob"}).then(
+		function(content) {
+  		saveAs(content, "palette.zip");
+		}
+	);
+}
+
+// Old downloading version
+/*function download(){
 	var data = blobify(create_file("background"))
 	var file = window.URL.createObjectURL(data);
 	var link = document.getElementById("downloadlink");
   link.href = file;
   link.click();
-}
+}*/
