@@ -266,15 +266,6 @@ var entityShoveThwomp = [
 
 var objects = {
   background:background,
-  editor:editor,
-  explosions:explosions,
-  fxDroneZap:fxDroneZap,
-  fxFloorguardZap:fxFloorguardZap,
-  fxNinja:fxNinja,
-  headbands:headbands,
-  menu:menu,
-  timeBar:timeBar,
-  timeBarRace:timeBarRace,
   ninja:ninja,
   entityMine:entityMine,
   entityGold:entityGold,
@@ -299,5 +290,26 @@ var objects = {
   entityBoostPad:entityBoostPad,
   entityBat:entityBat,
   entityEyeBat:entityEyeBat,
-  entityShoveThwomp:entityShoveThwomp
+  entityShoveThwomp:entityShoveThwomp,
+  menu:menu,
+  editor:editor,
+  timeBar:timeBar,
+  timeBarRace:timeBarRace,
+  headbands:headbands,
+  explosions:explosions,
+  fxDroneZap:fxDroneZap,
+  fxFloorguardZap:fxFloorguardZap,
+  fxNinja:fxNinja
+}
+
+function getObjects(filename, indexes = []){
+  if (indexes === undefined || indexes.length == 0) {
+    return objects[filename];
+  } else {
+    var newArr = [];
+    for (var i=0;i<objects[filename].length;i++){
+      if (indexes.includes(i)) { newArr.push(objects[filename][i]); }
+    }
+    return newArr;
+  }
 }
