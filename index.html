@@ -22,7 +22,7 @@
 			<button class="tab" onclick="tab('Timebar', 'tab')">Timebar</button>
 			<button class="tab" onclick="tab('Headbands', 'tab')">Headbands</button>
 			<button class="tab" onclick="tab('Effects', 'tab')">Effects</button>
-			<button class="tab" onclick="tab('About', 'tab')"><i>About</i></button>
+			<button class="tab" onclick="tab('About', 'tab')">HELP</button>
 		</div>
 		<div id="Objects" class="page" style="display:none">
 			<div class="listbox-area">
@@ -135,12 +135,12 @@
 			<p>This application will help you create your own customized color themes / palettes for N++. Read the following info to know how to implement the created palettes in the game.</p>
 			<h3>How to use:</h3>
 			<ul>
-			<li>Load a palette by clicking the <strong>Load Palette</strong> button, a folder selection dialog will open.</li>
+			<li><s>Load a palette by clicking the <strong>Load Palette</strong> button, a folder selection dialog will open.</s> To be implemented.</li>
 			<li>The colors are classified in tabs, and each tab has a list. <strong>Click</strong> on the list elements to view the colors for that element (e.g. <em>Objects</em> -&gt; <em>Exit door</em>).</li>
-			<li>Write a name and click the <strong>Create palette</strong> button to generate the palette folder with all the files inside. The folder will be created in the program's folder, without dialog.</li>
+			<li>Click the <strong>Download palette</strong> button to generate the palette folder with all the files inside. The folder will be created in the program's folder, without dialog.</li>
 			</ul>
 			<h3>How to implement:</h3>
-			<p>You will have to put the palette folder into the <em>Palettes</em> folder of your N++ installation directory, inside your Steam folder. It should be something like this:</p>
+			<p>You will have to put the palette folder (which name will be the in-game name of the palette) into the <em>Palettes</em> folder of your N++ installation directory, inside your Steam folder. It should be something like this:</p>
 			<ul>
 			<li><strong>Linux</strong>: <code>home/&lt;user&gt;/.steam/steam/steamapps/common/N++/NPP/Palettes</code></li>
 			<li><strong>Windows</strong>: <code>SteamLibrary/steamapps/common/N++/NPP/Palettes</code></li>
@@ -155,7 +155,6 @@
 			</ul>
 		</div>
 		<div class="menu">
-			<button id="Load">Load palette</button>
 			<button id="Download" onclick="create_palette()">Download palette</button>
 		</div>
 		<a download="info" id="downloadlink" style="display: none"></a>
@@ -166,7 +165,7 @@
 			<table>
 				<tr><td>Author:</td><td>Eddy</td></tr>
 				<tr><td>Created:</td><td>28/Jul/2019</td></tr>
-				<tr><td>Updated:</td><td>05/Aug/2019</td></tr>
+				<tr><td>Updated:</td><td>07/Aug/2019</td></tr>
 			</table>
 		</footer>
 	</body>

@@ -38,7 +38,7 @@ var buttons = [
 	{name:"editor", section:"Editor_Items", indexes:[1, 4, 9]},
 	{name:"timeBar", section:"Timebar_Items", indexes:[0, 2, 4, 6]},
 	{name:"timeBar", section:"Timebar_Items", indexes:[1]},
-	{name:"timeBarRace", section:"Timebar_Items", indexes:[1, 5, 6, 7]},
+	{name:"timeBarRace", section:"Timebar_Items", indexes:[0, 1, 5, 6, 7]},
 	{name:"timeBarRace", section:"Timebar_Items", indexes:[2, 8, 9, 10]},
 	{name:"timeBarRace", section:"Timebar_Items", indexes:[3, 11, 12, 13]},
 	{name:"timeBarRace", section:"Timebar_Items", indexes:[4, 14, 15, 16]},
@@ -63,6 +63,7 @@ function create_button(i, o, indexes, sect){
 	for (var j=0;j<colors.length;j++){
 		var input = document.createElement("input");
 		var text = document.createTextNode(colors[j]["text"]);
+		input.id = o + (indexes.length == 0 ? j : indexes[j]);
 		input.className = "jscolor";
 		input.value = colors[j]["color"];
 		area.appendChild(input);
@@ -78,13 +79,12 @@ function create_buttons(){
 	}
 }
 
-function update_button(){
-
-}
-
 function update_buttons(){
-	for (var i=0;i<buttons.length;i++){
-		update_button();
+	for (var o in objects){
+		for (var j=0;j<objects[o].length;j++){
+			//if (document.getElementById(o+j) === null) { console.log(o+j); }
+			objects[o][j]["color"] = document.getElementById(o+j).value;
+		}
 	}
 }
 
