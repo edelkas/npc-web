@@ -156,11 +156,15 @@
 		</div>
 		<div class="menu">
 			<button id="Download" onclick="create_palette()">Download palette</button>
+			<input id="file" type="file" name="file" class="inputfile">
+			<label for="file">Load palette</label>
+			<!--<button id="Load" onclick="parse_palette()">Load palette</button>-->
 		</div>
 		<a download="info" id="downloadlink" style="display: none"></a>
 		<script>document.getElementById("def").click();</script>
 		<!--<script>document.getElementById("l00").click();</script>-->
 		<script>create_buttons()</script>
+		<pre id="fileDisplayArea"><pre>
 		<footer>
 			<table>
 				<tr><td>Author:</td><td>Eddy</td></tr>

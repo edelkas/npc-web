@@ -1,3 +1,10 @@
+/**
+ *
+ * MAIN WEB INTERFACE
+ *
+ */
+
+// Color buttons for each section of the GUI
 var buttons = [
 	{name:"background", section:"Objects_Items", indexes:[]},
 	{name:"ninja", section:"Objects_Items", indexes:[]},
@@ -53,6 +60,7 @@ var buttons = [
 	{name:"fxNinja", section:"Effects_Items", indexes:[]}
 ]
 
+// Creates the buttons of each section, on load
 function create_button(i, o, indexes, sect){
 	var section = document.getElementById(sect);
 	var colors = getObjects(o, indexes);
@@ -73,12 +81,14 @@ function create_button(i, o, indexes, sect){
 	section.appendChild(area);
 }
 
+// Create all buttons, on load
 function create_buttons(){
 	for (var i=0;i<buttons.length;i++){
 		create_button(i, buttons[i]["name"], buttons[i]["indexes"], buttons[i]["section"]);
 	}
 }
 
+// Update value of variables with selected colors from colorpickers
 function update_buttons(){
 	for (var o in objects){
 		for (var j=0;j<objects[o].length;j++){
@@ -88,6 +98,7 @@ function update_buttons(){
 	}
 }
 
+// Changes the current tab view
 function tab(item, type){
 	var i, tabs, obj;
 	obj = document.getElementById(item);
@@ -96,12 +107,50 @@ function tab(item, type){
 	obj.style.display = "block";
 }
 
+/**
+ *
+ * INTERNAL METHODS
+ *
+ */
+
+// Create blob from string of bytes
 function blobify(text){
 	var bytes = new Uint8Array(text.match(/.{2}/g).map(e => parseInt(e, 16)));
 	return new Blob([bytes], {type: "application/octet-stream"});
 }
 
-// Read the TGA specs to understand this function
+// Create string of bytes from blob
+function deblobify(blob){
+	var binary = "";
+	var bytes = new Uint8Array(blob);
+	for (var i=0;i<bytes.byteLength;i++){
+		binary += bytes[i].toString(16).padStart(2, '0').toUpperCase();
+	}
+	return binary;
+}
+
+// Listener for file uploading
+window.onload = function() {
+	var fileInput = document.getElementById('file');
+	var fileDisplayArea = document.getElementById('fileDisplayArea');
+	fileInput.addEventListener('change', function(e) {
+		var file = fileInput.files[0];
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			fileDisplayArea.innerText = deblobify(reader.result);
+		}
+		reader.readAsArrayBuffer(file);
+	});
+}
+
+/**
+ *
+ * FILE MANIPULATION METHODS
+ *
+ */
+
+// Generate string with hex code of a palette file
+// (Read the TGA specs to understand this function)
 function create_file(name){
 	var i, j, n, w, f;
 	n = objects[name].length;
@@ -115,6 +164,7 @@ function create_file(name){
 	return f;
 }
 
+// Generate all palette files, zip them and serve them
 function create_palette(){
 	update_buttons();
 	var objs = Object.keys(objects).map(o => blobify(create_file(o)));
@@ -135,3 +185,14 @@ function create_palette(){
   link.href = file;
   link.click();
 }*/
+
+// Use XMLHttpRequest.sendAsBinary() method.
+function parse_file(){
+	var reader = new FileReader();
+	reader.onload = function(e){ var rawData = reader.result; }
+	reader.readAsBinaryString(file);
+}
+
+function parse_palette(){
+
+}
