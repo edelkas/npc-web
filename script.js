@@ -60,6 +60,9 @@ var buttons = [
 	{name:"fxNinja", section:"Effects_Items", indexes:[]}
 ]
 
+// File strings
+var files = {};
+
 // Creates the buttons of each section, on load
 function create_button(i, o, indexes, sect){
 	var section = document.getElementById(sect);
@@ -130,16 +133,20 @@ function deblobify(blob){
 }
 
 // Listener for file uploading
+function list(){ files[this.f.name] = deblobify(this.result); }
 window.onload = function() {
 	var fileInput = document.getElementById('file');
 	var fileDisplayArea = document.getElementById('fileDisplayArea');
 	fileInput.addEventListener('change', function(e) {
-		var file = fileInput.files[0];
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			fileDisplayArea.innerText = deblobify(reader.result);
+		var files_raw = fileInput.files;
+		for (var i=0;i<files_raw.length;i++){
+			var file = files_raw[i];
+			var reader = new FileReader();
+			reader.f = file;
+			reader.onload = list;
+			reader.readAsArrayBuffer(file);
 		}
-		reader.readAsArrayBuffer(file);
+		parse_palette();
 	});
 }
 
@@ -188,11 +195,10 @@ function create_palette(){
 
 // Use XMLHttpRequest.sendAsBinary() method.
 function parse_file(){
-	var reader = new FileReader();
-	reader.onload = function(e){ var rawData = reader.result; }
-	reader.readAsBinaryString(file);
+
 }
 
 function parse_palette(){
-
+	fileDisplayArea.innerText = Object.values(files).join("\n");
+	//alert("Missing");
 }
