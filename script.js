@@ -133,10 +133,12 @@ function deblobify(blob){
 }
 
 // Listener for file uploading
-function list(){ files[this.f.name] = deblobify(this.result); }
+function list(){
+	var end_index = this.f.name.length - 4;
+	files[this.f.name.substring(0,end_index)] = deblobify(this.result);
+}
 window.onload = function() {
 	var fileInput = document.getElementById('file');
-	var fileDisplayArea = document.getElementById('fileDisplayArea');
 	fileInput.addEventListener('change', function(e) {
 		var files_raw = fileInput.files;
 		for (var i=0;i<files_raw.length;i++){
@@ -146,8 +148,11 @@ window.onload = function() {
 			reader.onload = list;
 			reader.readAsArrayBuffer(file);
 		}
-		parse_palette();
 	});
+}
+
+function test(){
+	parse_palette();
 }
 
 /**
@@ -199,6 +204,17 @@ function parse_file(){
 }
 
 function parse_palette(){
+	var fileDisplayArea = document.getElementById('fileDisplayArea');
+	var objs = Object.keys(objects);
+	var inexistant = [];
+	var inex_count = 0;
+	for (var i=0;i<objs.length;i++){
+		if (!files.hasOwnProperty(objs[i])) {
+			inexistant.push(objs[i]);
+			inex_count += 1;
+		}
+	}
+	if (inex_count > 0) { alert("Missing files:\n\n" + inexistant.join("\n")); }
 	fileDisplayArea.innerText = Object.values(files).join("\n");
 	//alert("Missing");
 }
