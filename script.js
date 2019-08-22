@@ -209,7 +209,7 @@ window.onload = function() {
  *
  */
 
-// Generate string with hex code of a palette file
+// Creates a tga file as a string of raw bytes in hex
 // (Read the TGA specs to understand this function)
 function create_file(name){
 	var i, j, n, w, f;
@@ -237,16 +237,7 @@ function create_palette(){
 	);
 }
 
-// Old downloading version
-/*function download(){
-	var data = blobify(create_file("background"))
-	var file = window.URL.createObjectURL(data);
-	var link = document.getElementById("downloadlink");
-  link.href = file;
-  link.click();
-}*/
-
-// Use XMLHttpRequest.sendAsBinary() method.
+// Parses a tga file from a string of raw bytes in hex
 function parse_file(file){
 	var correct = check_file(files[file]);
 	if (correct) {
@@ -257,6 +248,7 @@ function parse_file(file){
 	}
 }
 
+// Parses all palette files
 function parse_palette(){
 	var objs = Object.keys(objects);
 	var fileDisplayArea = document.getElementById('fileDisplayArea');
