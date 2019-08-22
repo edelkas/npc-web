@@ -62,6 +62,7 @@ var buttons = [
 
 // File strings
 var files = {};
+var files_loaded = {};
 
 // Creates the buttons of each section, on load
 function create_button(i, o, indexes, sect){
@@ -136,23 +137,72 @@ function deblobify(blob){
 function list(){
 	var end_index = this.f.name.length - 4;
 	files[this.f.name.substring(0,end_index)] = deblobify(this.result);
+	files_loaded[this.f.name.substring(0,end_index)] = true;
+}
+function check_palette(){
+	var done = true;
+	var objs = Object.keys(objects);
+	for (var i=0;i<objs.length;i++){
+		if (!files.hasOwnProperty(objs[i]) ||
+				!files_loaded.hasOwnProperty(objs[i]) ||
+				!files_loaded[objs[i]]) {
+				done = false;
+				break;
+		}
+	}
+	if (done == true) {
+		parse_palette();
+		return;
+	} else {
+		setTimeout(check_palette, 100);
+	}
 }
 window.onload = function() {
 	var fileInput = document.getElementById('file');
+	// Load and read the selected files
 	fileInput.addEventListener('change', function(e) {
+		// Retrieve selected files
 		var files_raw = fileInput.files;
+		// Remove extraneous files
+		var objs = Object.keys(objects);
 		for (var i=0;i<files_raw.length;i++){
-			var file = files_raw[i];
-			var reader = new FileReader();
-			reader.f = file;
-			reader.onload = list;
-			reader.readAsArrayBuffer(file);
+			var end_index = files_raw[i].name.length - 4;
+			var filename = files_raw[i].name.substring(0,end_index);
+			if (!objs.includes(filename)) { files_raw.splice(i, 1); }
+		}
+		// Check for existence of all palette files
+		var filenames = [];
+		for (var i=0;i<files_raw.length;i++){ filenames.push(files_raw[i].name); }
+		var inexistant = [];
+		var inex_count = 0;
+		for (var i=0;i<objs.length;i++){
+			if (!filenames.includes(objs[i] + ".tga")) {
+				inexistant.push(objs[i] + ".tga");
+				inex_count += 1;
+			}
+		}
+		// Proceed only if all files were correct
+		if (inex_count > 0) {
+			// Clean files
+			files = {};
+			files_loaded = {};
+			alert("Missing files:\n\n" + inexistant.join("\n"));
+		} else {
+			// Read the files
+			files = {};
+			files_loaded = {};
+			for (var i=0;i<files_raw.length;i++){
+				var file = files_raw[i];
+				var reader = new FileReader();
+				reader.f = file;
+				reader.onload = list;
+				reader.readAsArrayBuffer(file);
+			}
+			// Since file reading is done asynchronously, we periodically check for
+			// the palette's availability until it's ready.
+			check_palette()
 		}
 	});
-}
-
-function test(){
-	parse_palette();
 }
 
 /**
@@ -205,16 +255,5 @@ function parse_file(){
 
 function parse_palette(){
 	var fileDisplayArea = document.getElementById('fileDisplayArea');
-	var objs = Object.keys(objects);
-	var inexistant = [];
-	var inex_count = 0;
-	for (var i=0;i<objs.length;i++){
-		if (!files.hasOwnProperty(objs[i])) {
-			inexistant.push(objs[i]);
-			inex_count += 1;
-		}
-	}
-	if (inex_count > 0) { alert("Missing files:\n\n" + inexistant.join("\n")); }
 	fileDisplayArea.innerText = Object.values(files).join("\n");
-	//alert("Missing");
 }
