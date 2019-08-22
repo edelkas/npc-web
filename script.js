@@ -158,6 +158,8 @@ function check_palette(){
 	}
 }
 window.onload = function() {
+	files = {};
+	files_loaded = {};
 	var fileInput = document.getElementById('file');
 	// Load and read the selected files
 	fileInput.addEventListener('change', function(e) {
@@ -184,13 +186,9 @@ window.onload = function() {
 		// Proceed only if all files were correct
 		if (inex_count > 0) {
 			// Clean files
-			files = {};
-			files_loaded = {};
 			alert("Missing files:\n\n" + inexistant.join("\n"));
 		} else {
 			// Read the files
-			files = {};
-			files_loaded = {};
 			for (var i=0;i<files_raw.length;i++){
 				var file = files_raw[i];
 				var reader = new FileReader();
@@ -200,7 +198,7 @@ window.onload = function() {
 			}
 			// Since file reading is done asynchronously, we periodically check for
 			// the palette's availability until it's ready.
-			check_palette()
+			check_palette();
 		}
 	});
 }
@@ -249,11 +247,32 @@ function create_palette(){
 }*/
 
 // Use XMLHttpRequest.sendAsBinary() method.
-function parse_file(){
-
+function parse_file(file){
+	var correct = check_file(files[file]);
+	if (correct) {
+		// Change colorboxes
+		return 0;
+	} else {
+		return ("ERROR with file " + file + "\n"); // TODO: specify the error
+	}
 }
 
 function parse_palette(){
+	var objs = Object.keys(objects);
 	var fileDisplayArea = document.getElementById('fileDisplayArea');
+	var errorMessage = "ERROR loading palette:\n\n";
+	var errors = false;
 	fileDisplayArea.innerText = Object.values(files).join("\n");
+	for (var i=0;i<objs.length;i++){
+		var result = parse_file(objs[i]);
+		if (result != 0) {
+			errorMessage += result;
+			errors = true;
+		}
+	}
+	if (errors == true) {
+		alert(errorMessage);
+		files = {};
+		files_loaded = {};
+	}
 }
