@@ -205,7 +205,7 @@ window.onload = function() {
 
 /**
  *
- * FILE MANIPULATION METHODS
+ * GENERATE PALETTE
  *
  */
 
@@ -237,14 +237,86 @@ function create_palette(){
 	);
 }
 
-// Parses a tga file from a string of raw bytes in hex
-function parse_file(file){
-	var correct = check_file(files[file]);
-	if (correct) {
-		// Change colorboxes
-		return 0;
+/**
+ *
+ * PARSE PALETTE
+ *
+ */
+
+// Check that the TGA is valid for our purpose
+function check_file(filename){
+	// Load file
+	var errorMessage = "ERRORS with file " + filename + ":\n";
+	var errorHappened = false;
+	var file = files[filename].match(/.{2}/g);
+	var header = file.slice(0,18);
+	// Extract header fields
+	var id_length = parseInt(header[0], 16);
+	var colormap_type = parseInt(header[1], 16);
+	var image_type = parseInt(header[2], 16);
+	var colormap_spec = header.slice(3,8);
+	var width = parseInt(header.slice(12,14).reverse().join(""), 16);
+	var height = parseInt(header.slice(14,16).reverse().join(""), 16);
+	var pixel_depth = parseInt(header[16], 16);
+	var colors = width / 64;
+	// Various checks for validity
+	if (colormap_type != 0) {
+		errorHappened = true;
+		errorMessage += "The image is colormapped (not supported).\n";
+	}
+	switch (image_type) {
+		case 0:
+			errorHappened = true;
+			errorMessage += "No image data found.\n";
+		case 1:
+			errorHappened = true;
+			errorMessage += "The image is colormapped (not supported).\n";
+		case 2:
+			// Raw true-color image, supported.
+		case 3:
+			errorHappened = true;
+			errorMessage += "The image is grayscale (not supported).\n";
+		case 9:
+			errorHappened = true;
+			errorMessage += "The image is colormapped (not supported).\n";
+		case 10:
+			// Run-length encoded true-color image, supported.
+		case 11:
+			errorHappened = true;
+			errorMessage += "The image is grayscale (not supported).\n";
+		default:
+			errorHappened = true;
+			errorMessage += ("Invalid image type (" + image_type + ").\n");
+	}
+	if (colors != objects[filename].length) {
+		errorHappened = true;
+		errorMessage += ("The image doesn't have the right amount of colors (has "
+								 + colors.toString() + ", should have "
+								 + objects[filename].length.toString() + ").\n");
+	}
+	if (height != 64) {
+		errorMessage += "Warning: The image height should be 64.\n"
+	}
+	if (pixel_depth != 24 || pixel_depth != 32) {
+		errorHappened = true;
+		errorMessage += ("The pixel depth is " + pixel_depth.toString()
+																					 + " (only 24 and 32 supported).\n");
+	}
+	if (errorHappened) {
+		return errorMessage;
 	} else {
-		return ("ERROR with file " + file + "\n"); // TODO: specify the error
+		return true;
+	}
+}
+
+// Parses a tga file from a string of raw bytes in hex
+function parse_file(filename){
+	var result = check_file(filename);
+	if (result) {
+		// Change colorboxes
+		return true;
+	} else {
+		return result;
 	}
 }
 
@@ -253,18 +325,22 @@ function parse_palette(){
 	var objs = Object.keys(objects);
 	var fileDisplayArea = document.getElementById('fileDisplayArea');
 	var errorMessage = "ERROR loading palette:\n\n";
+	var successMessage = "";
 	var errors = false;
-	fileDisplayArea.innerText = Object.values(files).join("\n");
 	for (var i=0;i<objs.length;i++){
 		var result = parse_file(objs[i]);
-		if (result != 0) {
-			errorMessage += result;
+		if (!result) {
+			errorMessage += (result + "\n");
 			errors = true;
+		} else {
+			successMessage += ("SUCCESS: File " + objs[i] + " parsed successfully.\n");
 		}
 	}
 	if (errors == true) {
 		alert(errorMessage);
 		files = {};
 		files_loaded = {};
+	} else {
+		fileDisplayArea.innerText = successMessage;
 	}
 }
