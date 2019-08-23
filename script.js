@@ -117,6 +117,12 @@ function tab(item, type){
  *
  */
 
+// Logging method
+function log(string){
+	var fileDisplayArea = document.getElementById('fileDisplayArea');
+	fileDisplayArea.innerHTML += (moment().format("HH:mm:ss") + ": " + string + "\n");
+}
+
 // Create blob from string of bytes
 function blobify(text){
 	var bytes = new Uint8Array(text.match(/.{2}/g).map(e => parseInt(e, 16)));
@@ -325,7 +331,6 @@ function parse_palette(){
 	var objs = Object.keys(objects);
 	var fileDisplayArea = document.getElementById('fileDisplayArea');
 	var errorMessage = "ERROR loading palette:\n\n";
-	var successMessage = "";
 	var errors = false;
 	for (var i=0;i<objs.length;i++){
 		var result = parse_file(objs[i]);
@@ -333,14 +338,12 @@ function parse_palette(){
 			errorMessage += (result + "\n");
 			errors = true;
 		} else {
-			successMessage += ("SUCCESS: File " + objs[i] + " parsed successfully.\n");
+			log("SUCCESS: File " + objs[i] + " parsed successfully.");
 		}
 	}
 	if (errors == true) {
 		alert(errorMessage);
 		files = {};
 		files_loaded = {};
-	} else {
-		fileDisplayArea.innerText = successMessage;
 	}
 }

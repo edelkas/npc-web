@@ -96,3 +96,11 @@ footer {
   width: 60px;
   height: 30px;
 }
+/* Log box */
+pre {
+  padding: 0px;
+  overflow-y: auto;
+  min-height: 8em;
+  max-height: 8em;
+  border: 1px solid #aaa;
+}
