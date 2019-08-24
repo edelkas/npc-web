@@ -170,7 +170,9 @@ window.onload = function() {
 	// Load and read the selected files
 	fileInput.addEventListener('change', function(e) {
 		// Retrieve selected files
-		var files_raw = fileInput.files;
+		var aux = fileInput.files;
+		var files_raw = [];
+		for (var i=0;i<aux.length;i++){ files_raw[i] = aux[i]; }
 		// Remove extraneous files
 		var objs = Object.keys(objects);
 		for (var i=0;i<files_raw.length;i++){
@@ -193,6 +195,7 @@ window.onload = function() {
 		if (inex_count > 0) {
 			// Clean files
 			alert("Missing files:\n\n" + inexistant.join("\n"));
+			log("Error loading palette: Missing " + inex_count.toString() + " files.");
 		} else {
 			// Read the files
 			for (var i=0;i<files_raw.length;i++){
@@ -268,44 +271,52 @@ function check_file(filename){
 	// Various checks for validity
 	if (colormap_type != 0) {
 		errorHappened = true;
-		errorMessage += "The image is colormapped (not supported).\n";
+		errorMessage += "* The image is colormapped (not supported).\n";
 	}
 	switch (image_type) {
 		case 0:
 			errorHappened = true;
-			errorMessage += "No image data found.\n";
+			errorMessage += "* No image data found.\n";
+			break;
 		case 1:
 			errorHappened = true;
-			errorMessage += "The image is colormapped (not supported).\n";
+			errorMessage += "* The image is colormapped (not supported).\n";
+			break;
 		case 2:
 			// Raw true-color image, supported.
+			break;
 		case 3:
 			errorHappened = true;
-			errorMessage += "The image is grayscale (not supported).\n";
+			errorMessage += "* The image is grayscale (not supported).\n";
+			break;
 		case 9:
 			errorHappened = true;
-			errorMessage += "The image is colormapped (not supported).\n";
+			errorMessage += "* The image is colormapped (not supported).\n";
+			break;
 		case 10:
 			// Run-length encoded true-color image, supported.
+			break;
 		case 11:
 			errorHappened = true;
-			errorMessage += "The image is grayscale (not supported).\n";
+			errorMessage += "* The image is grayscale (not supported).\n";
+			break;
 		default:
 			errorHappened = true;
-			errorMessage += ("Invalid image type (" + image_type + ").\n");
+			errorMessage += ("* Invalid image type (" + image_type + ").\n");
+			break;
 	}
 	if (colors != objects[filename].length) {
 		errorHappened = true;
-		errorMessage += ("The image doesn't have the right amount of colors (has "
+		errorMessage += ("* The image doesn't have the right amount of colors (has "
 								 + colors.toString() + ", should have "
 								 + objects[filename].length.toString() + ").\n");
 	}
 	if (height != 64) {
-		errorMessage += "Warning: The image height should be 64.\n"
+		errorMessage += "* Warning: The image height should be 64.\n"
 	}
-	if (pixel_depth != 24 || pixel_depth != 32) {
+	if (pixel_depth != 24 && pixel_depth != 32) {
 		errorHappened = true;
-		errorMessage += ("The pixel depth is " + pixel_depth.toString()
+		errorMessage += ("* The pixel depth is " + pixel_depth.toString()
 																					 + " (only 24 and 32 supported).\n");
 	}
 	if (errorHappened) {
@@ -318,7 +329,7 @@ function check_file(filename){
 // Parses a tga file from a string of raw bytes in hex
 function parse_file(filename){
 	var result = check_file(filename);
-	if (result) {
+	if (result === true) {
 		// Change colorboxes
 		return true;
 	} else {
@@ -334,7 +345,7 @@ function parse_palette(){
 	var errors = false;
 	for (var i=0;i<objs.length;i++){
 		var result = parse_file(objs[i]);
-		if (!result) {
+		if (!(result === true)) {
 			errorMessage += (result + "\n");
 			errors = true;
 		} else {
@@ -345,5 +356,7 @@ function parse_palette(){
 		alert(errorMessage);
 		files = {};
 		files_loaded = {};
+	} else {
+		log("Successfully loaded palette.");
 	}
 }
