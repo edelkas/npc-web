@@ -139,6 +139,13 @@ function deblobify(blob){
 	return binary;
 }
 
+// Creates a matrix from an array
+function matrixize(array, size){
+	var matrix = [];
+	for (var i=0;i<array.length;i+=size) matrix.push(array.slice(i,i+size));
+	return matrix;
+}
+
 // Listener for file uploading
 function list(){
 	var end_index = this.f.name.length - 4;
@@ -359,4 +366,18 @@ function parse_palette(){
 	} else {
 		log("Successfully loaded palette.");
 	}
+}
+
+function test(){
+	var file = document.getElementById("test_file").files[0];
+	var reader = new FileReader();
+	reader.onload = function(){
+		var buffer = reader.result;
+		var tga = new TGA();
+		tga.load(buffer);
+		var image = tga.getImageData();
+		var pixels = matrixize(matrixize(image.data, 4), 384);
+		log(pixels[30][31].toString());
+	};
+	reader.readAsArrayBuffer(file);
 }
