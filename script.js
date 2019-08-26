@@ -90,6 +90,7 @@ function create_buttons(){
 	for (var i=0;i<buttons.length;i++){
 		create_button(i, buttons[i]["name"], buttons[i]["indexes"], buttons[i]["section"]);
 	}
+	log("Info: Successfully loaded NPC.");
 }
 
 // Update value of variables with selected colors from colorpickers
@@ -120,7 +121,7 @@ function tab(item, type){
 // Logging method
 function log(string){
 	var fileDisplayArea = document.getElementById('fileDisplayArea');
-	fileDisplayArea.innerHTML += (moment().format("HH:mm:ss") + ": " + string + "\n");
+	fileDisplayArea.innerHTML += (moment().format("HH:mm:ss") + " - " + string + "\n");
 }
 
 // Create blob from string of bytes
@@ -137,6 +138,11 @@ function deblobify(blob){
 		binary += bytes[i].toString(16).padStart(2, '0').toUpperCase();
 	}
 	return binary;
+}
+
+// Creates ArrayBuffer from string
+function bufferize(text){
+	return new Uint8Array(text.match(/.{2}/g).map(e => parseInt(e, 16))).buffer;
 }
 
 // Creates a matrix from an array
@@ -251,6 +257,7 @@ function create_palette(){
   		saveAs(content, "palette.zip");
 		}
 	);
+	log("Info: Downloaded palette.")
 }
 
 /**
@@ -337,7 +344,20 @@ function check_file(filename){
 function parse_file(filename){
 	var result = check_file(filename);
 	if (result === true) {
-		// Change colorboxes
+		// Change colorboxes (pixels (31,32) + (0,64*i))
+		var file = files[filename];
+		var tga = new TGA();
+		var buffer = bufferize(file);
+		tga.load(buffer);
+		var width = tga.header.width;
+		var n = width / 64;
+		var image = tga.getImageData();
+		var pixels = matrixize(matrixize(image.data, 4), width);
+		for (var i=0;i<n;i++){
+			var rgb = deblobify(pixels[31][32+64*i]).substring(0,6);
+			var input = document.getElementById(filename + i.toString());
+			input.value = rgb;
+		}
 		return true;
 	} else {
 		return result;
@@ -356,28 +376,32 @@ function parse_palette(){
 			errorMessage += (result + "\n");
 			errors = true;
 		} else {
-			log("SUCCESS: File " + objs[i] + " parsed successfully.");
+			// log("Info: File " + objs[i] + " parsed successfully.");
 		}
 	}
 	if (errors == true) {
 		alert(errorMessage);
+		log("Error loading palette: Invalid TGA files.")
 		files = {};
 		files_loaded = {};
 	} else {
-		log("Successfully loaded palette.");
+		log("Info: Successfully loaded palette.");
 	}
 }
 
 function test(){
-	var file = document.getElementById("test_file").files[0];
-	var reader = new FileReader();
-	reader.onload = function(){
-		var buffer = reader.result;
-		var tga = new TGA();
-		tga.load(buffer);
-		var image = tga.getImageData();
-		var pixels = matrixize(matrixize(image.data, 4), 384);
-		log(pixels[30][31].toString());
-	};
-	reader.readAsArrayBuffer(file);
+	var file = files["background"];
+	var tga = new TGA();
+	var buffer = bufferize(file);
+	tga.load(buffer);
+	var width = tga.header.width;
+	var n = width / 64;
+	var image = tga.getImageData();
+	var pixels = matrixize(matrixize(image.data, 4), width);
+	var colors = new Array(n);
+	for (var i=0;i<n;i++){
+		var rgb = deblobify(pixels[31][32+64*i]).substring(0,6);
+		colors[i] = rgb;
+		log(rgb);
+	}
 }

@@ -4,6 +4,7 @@
  * @author Vincent Thibault (Original author)
  * @author Lukas Schmitt
  * @version 1.0.0
+ * Nota: Modified by Eddy.
  */
 
 /* Copyright (c) 2013, Vincent Thibault. All rights reserved.
@@ -662,6 +663,13 @@
   }
 
   /**
+   * Eddy: Added this method for convenience.
+   */
+  Targa.prototype.header = function targaHeader() {
+    return {width:this.header.width, height:this.header.height};
+  }
+
+  /**
    * Load and parse a TGA file
    *
    * @param {ArrayBuffer} data - TGA file buffer array
@@ -700,7 +708,7 @@
     } else { // RAW pixels
       this.imageData = new Uint8Array(data, offset, this.header.hasColorMap ? imageSize : pixelTotal);
     }
-    
+
     this.footer = readFooter(dataView);
 
     if (this.header.alphaBits !== 0  || this.footer.hasExtensionArea && (this.footer.attributeType === 3 || this.footer.attributeType === 4)) {
