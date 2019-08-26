@@ -357,6 +357,7 @@ function parse_file(filename){
 			var rgb = deblobify(pixels[31][32+64*i]).substring(0,6);
 			var input = document.getElementById(filename + i.toString());
 			input.value = rgb;
+			input.jscolor.fromString(rgb);
 		}
 		return true;
 	} else {
