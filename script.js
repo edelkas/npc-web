@@ -281,8 +281,9 @@ function check_file(filename){
 	var width = parseInt(header.slice(12,14).reverse().join(""), 16);
 	var height = parseInt(header.slice(14,16).reverse().join(""), 16);
 	var pixel_depth = parseInt(header[16], 16);
-	var colors = width / 64;
-	// Various checks for validity
+	var colors = Math.round(width / 64);
+	// The following used to be check from when I wasn't using a TGA library
+	/*
 	if (colormap_type != 0) {
 		errorHappened = true;
 		errorMessage += "* The image is colormapped (not supported).\n";
@@ -319,6 +320,13 @@ function check_file(filename){
 			errorMessage += ("* Invalid image type (" + image_type + ").\n");
 			break;
 	}
+
+	if (pixel_depth != 24 && pixel_depth != 32) {
+		errorHappened = true;
+		errorMessage += ("* The pixel depth is " + pixel_depth.toString()
+																					 + " (only 24 and 32 supported).\n");
+	}
+	*/
 	if (colors != objects[filename].length) {
 		errorHappened = true;
 		errorMessage += ("* The image doesn't have the right amount of colors (has "
@@ -327,11 +335,6 @@ function check_file(filename){
 	}
 	if (height != 64) {
 		errorMessage += "* Warning: The image height should be 64.\n"
-	}
-	if (pixel_depth != 24 && pixel_depth != 32) {
-		errorHappened = true;
-		errorMessage += ("* The pixel depth is " + pixel_depth.toString()
-																					 + " (only 24 and 32 supported).\n");
 	}
 	if (errorHappened) {
 		return errorMessage;
@@ -345,21 +348,25 @@ function parse_file(filename){
 	var result = check_file(filename);
 	if (result === true) {
 		// Change colorboxes (pixels (31,32) + (0,64*i))
-		var file = files[filename];
-		var tga = new TGA();
-		var buffer = bufferize(file);
-		tga.load(buffer);
-		var width = tga.header.width;
-		var n = width / 64;
-		var image = tga.getImageData();
-		var pixels = matrixize(matrixize(image.data, 4), width);
-		for (var i=0;i<n;i++){
-			var rgb = deblobify(pixels[31][32+64*i]).substring(0,6);
-			var input = document.getElementById(filename + i.toString());
-			input.value = rgb;
-			input.jscolor.fromString(rgb);
+		try {
+			var file = files[filename];
+			var tga = new TGA();
+			var buffer = bufferize(file);
+			tga.load(buffer);
+			var width = tga.header.width;
+			var n = width / 64;
+			var image = tga.getImageData();
+			var pixels = matrixize(matrixize(image.data, 4), width);
+			for (var i=0;i<n;i++){
+				var rgb = deblobify(pixels[31][32+64*i]).substring(0,6);
+				var input = document.getElementById(filename + i.toString());
+				input.value = rgb;
+				input.jscolor.fromString(rgb);
+			}
+			return true;
+		} catch(e) {
+			return e.message;
 		}
-		return true;
 	} else {
 		return result;
 	}
@@ -371,18 +378,20 @@ function parse_palette(){
 	var fileDisplayArea = document.getElementById('fileDisplayArea');
 	var errorMessage = "ERROR loading palette:\n\n";
 	var errors = false;
+	var invalid = [];
 	for (var i=0;i<objs.length;i++){
 		var result = parse_file(objs[i]);
 		if (!(result === true)) {
 			errorMessage += (result + "\n");
 			errors = true;
+			invalid.push(objs[i] + ".tga");
 		} else {
 			// log("Info: File " + objs[i] + " parsed successfully.");
 		}
 	}
 	if (errors == true) {
 		alert(errorMessage);
-		log("Error loading palette: Invalid TGA files.")
+		log("Error loading palette: Invalid TGA files (" + invalid.join() + ").")
 		files = {};
 		files_loaded = {};
 	} else {
