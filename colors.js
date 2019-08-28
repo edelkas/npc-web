@@ -74,7 +74,7 @@ var menu = [
   {text: "Profile: Remaining text and percentages (see 14, 15). Story: Text. Options: Selected text, little bar in scrollbar. Credits: Header text.", color: "ECFFDF"},
   {text: "Leaderboards: Other player's ranks, your name (see 3, 14). Also, messages that appear in the leaderboard (\"Server error\", \"Player 2 needed for score submission\", race options header, etc). Profile: Death count bars. Editor: Header text in side panel, messages when publishing, naming, etc.", color: "ECFFDF"},
   {text: "\"Color / Music\" and \"Social\" menus header text (see 30). The other text is the same, but more transparent.", color: "323323"},
-  {text: "Replay inputs. Pause menu and editor panels unselected text (see 20).", color: "323323"},
+  {text: "Pause menu and editor panels unselected text (see 20).", color: "323323"},
   {text: "Pause menu and editor panels selected text (see 19).", color: "CBDCC1"},
   {text: "Pause menu and editor panels background.", color: "8C9487"},
   {text: "Pause menu and editor panels outline.", color: "4F564D"},
@@ -129,7 +129,7 @@ var timeBarRace = [
   {text: "Player 4 timebar numbers.", color: "FFFFFF"}
 ]
 var ninja = [
-  {text: "Ninja 1.", color: "000000"},
+  {text: "Ninja 1. Also, replay inputs.", color: "000000"},
   {text: "Ninja 2.", color: "EDDC54"},
   {text: "Ninja 3.", color: "3F1CB2"},
   {text: "Ninja 4.", color: "910A46"}
