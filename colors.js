@@ -91,7 +91,7 @@ var menu = [
   {text: "Leaderboard entry selection box (see 10).", color: "000000"},
   {text: "Tabs text (episodes and userlevels), selected (see 32). Sub-tab text, selected (e.g. \"By Date\" in the userlevels) (see 38).", color: "323323"},
   {text: "Soundtrack name.", color: "CBDCC1"},
-  {text: "Level information text (level name, author, success rate...). Also, upper big header text in every submenu.", color: "ECFFDF"},
+  {text: "Level information text (level name, author, success rate...). Also, upper big header text in every submenu. Game messages: \"Press X to start replay\", \"Success!\", \"Oops!\", \"Press X to continue\", \"Press X to try again\", \"submitting...\", etc.", color: "ECFFDF"},
   {text: "?", color: "C2CEB1"},
   {text: "Sub-tab text, unselected (e.g. \"By Date\" in the userlevels) (see 34).", color: "FECC04"},
   {text: "Text after level / episode completion (\"Your Global Rank\", level times, etc.).", color: "C2CEB1"},
