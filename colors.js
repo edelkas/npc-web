@@ -172,8 +172,8 @@ var entityDoorLocked = [
   {text: "Locked door switch button (toggled).", color: "323323"},
   {text: "Locked door switch border (untoggled).", color: "323323"},
   {text: "Locked door switch border (toggled).", color: "798076"},
-  {text: "Locked door switch background (untoggled).", color: "8C9487"},
-  {text: "Locked door switch background (toggled).", color: "8C9487"}
+  {text: "Locked door switch background (toggled).", color: "8C9487"},
+  {text: "Locked door switch background (untoggled).", color: "8C9487"}
 ]
 var entityDoorTrap = [
   {text: "Trap door bar.", color: "323323"},
