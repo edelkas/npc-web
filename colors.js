@@ -60,13 +60,13 @@ var menu = [
   {text: "Leaderboard: Background. Editor: Side panel background (darkened later).", color: "889382"},
   {text: "Leaderboard: Other player's scores, your rank (see 14, 17). Also, race options text. Editor side panel: Unselected text.", color: "323323"},
   {text: "\"Color / Music\" and \"Social\" menu panels background.", color: "666E62"},
-  {text: "Main menu: Text, unselected (see 11). Help: Directional arrows.", color: "ECFFDF"},
+  {text: "Main menu: Text, unselected (see 11). Help: Directional arrows. Also, uncompleted challenges (both requirements text and brackets) while playing the level (see 11, also see timeBarRace 1 and 2).", color: "ECFFDF"},
   {text: "Uncompleted episode background (see 8). Profile: Uncompleted episode. Editor: Level name when not being played.", color: "CBDCC1"},
   {text: "?", color: "323323"},
   {text: "Completed episode background (see 6). Profile: Completed episode.", color: "666E62"},
   {text: "Episode tabs background, unselected (see 13).", color: "889382"},
   {text: "Episode box outline (see 33).", color: "737C6E"},
-  {text: "Main menu: Text, selected (see 5). Logo color. Cursor color.", color: "FECC04"},
+  {text: "Main menu: Text, selected (see 5). Logo color. Cursor color. Also, completed challenges (brackets) when playng the level (see 5, also see timeBarRace 1 and 2).", color: "FECC04"},
   {text: "?", color: "FECC04"},
   {text: "Episode tabs background, selected (see 9).", color: "FECC04"},
   {text: "Leaderboards: Other player's names, your score (see 3, 17). Profile: Header text in side panel (see 15, 16).", color: "000000"},
@@ -110,8 +110,8 @@ var timeBar = [
   {text: "?", color: "C2CEB1"}
 ]
 var timeBarRace = [
-  {text: "Text \"Player 2/3/4 press X\" in the menu.", color: "889382"},
-  {text: "Text \"Player 1\" in the menu (the \"ready\" is controlled by #3 in headbands.tga).", color: "EDDC54"},
+  {text: "Text \"Player 2/3/4 press X\" in the menu. Uncompleted challenges (both requirements text and brackets) in level view (see menu 5 and 11).", color: "889382"},
+  {text: "Text \"Player 1\" in the menu (the \"ready\" is controlled by #3 in headbands.tga). Completed challenges (brackets) in level view (see menu 5 and 11).", color: "EDDC54"},
   {text: "Text \"Player 2 ready\" in the menu.", color: "FFFFFF"},
   {text: "Text \"Player 3 ready\" in the menu.", color: "8B9CF7"},
   {text: "Text \"Player 4 ready\" in the menu.", color: "EA6899"},
