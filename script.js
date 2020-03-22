@@ -74,14 +74,14 @@ function create_button(i, o, indexes, sect) {
     var colors = getObjects(o, indexes);
     var area = document.createElement("div");
     area.id = "i" + i;
-    area.classList = "container section";
+    area.classList = "section";
     area.style.display = "none";
     for (var j = 0; j < colors.length; j++) {
         var row = document.createElement("div");
-        row.classList = "row";
+        row.classList = "color-row";
 
         var inputDiv = document.createElement("div");
-        inputDiv.className = "col-auto";
+        inputDiv.className = "picker-col";
         var input = document.createElement("input");
         var inputId = o + (indexes.length == 0 ? j : indexes[j]);
         input.id = inputId;
@@ -90,7 +90,7 @@ function create_button(i, o, indexes, sect) {
         inputDiv.appendChild(input);
 
         var textDiv = document.createElement("div");
-        textDiv.classList = "col descriptionText"
+        textDiv.classList = "description-col"
         var text = document.createTextNode(colors[j]["text"]);
         textDiv.appendChild(text);
 
@@ -218,6 +218,12 @@ function tab(item, type) {
     obj.style.display = "block";
     if (type != "tab") {
         currentSection = obj;
+    } else {
+        if (obj.id == "About") {
+            document.getElementsByClassName("full-page")[0].style.display = "none";
+        } else {
+            document.getElementsByClassName("full-page")[0].style.display = "flex";
+        }
     }
     redrawCanvas()
 }

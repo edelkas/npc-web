@@ -44,13 +44,6 @@
     background-color: #ddd;
 }
 
-.page {
-    display: none;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-top: none;
-}
-
 
 /* Listbox */
 
@@ -60,30 +53,59 @@
 }
 
 .listbox-area {
-    padding: 0px 10px;
+    /* padding: 0px 10px;
+    background: #eee;
+    border: 1px solid #aaa; */
+    display: flex;
+    flex-direction: row;
+}
+
+.main-area {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-bottom: none;
+}
+
+.full-page {
+    /* margin: 10px; */
+    padding: 10px;
     background: #eee;
     border: 1px solid #aaa;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.page {
+    display: none;
+    flex: 1 1 50%;
 }
 
 .left-area,
-.right-area {
+.right-area,
+.sprite-area {
     box-sizing: border-box;
-    display: inline-block;
+    /* display: inline-block; */
     font-size: 14px;
     vertical-align: top;
 }
 
 .left-area {
     padding-right: 10px;
-    width: 20%;
+    height: 100%;
     cursor: pointer;
+    flex: 0 0 20%;
 }
 
 .right-area {
-    padding: 10px;
-    padding-top: 15px;
-    width: 80%;
-    float: right;
+    padding: 10px 15px;
+    /* width: 80%; */
+}
+
+.sprite-area {
+    /* padding: 10px; */
+    flex: 0 0 256px;
 }
 
 [role="listbox"] {
@@ -94,13 +116,15 @@
     max-height: 24em;
     overflow-y: auto;
     position: relative;
+    margin: 0;
 }
 
 [role="option"] {
     display: block;
-    padding: 0 1em 0 0.5em;
+    padding: 0.2em 1em 0.2em 0.5em;
     position: relative;
-    line-height: 1.8em;
+    font-family: sans-serif;
+    /* line-height: 1em; */
 }
 
 [role="option"].focused {
@@ -128,13 +152,15 @@ footer {
     margin-right: 4px;
 }
 
-.descriptionText {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+.description-col {
+    font-family: sans-serif;
     padding: 4px;
 }
 
-.row {
+.color-row {
     align-items: center;
+    display: flex;
+    flex-direction: row;
 }
 
 
