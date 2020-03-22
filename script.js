@@ -172,18 +172,6 @@ function redrawCanvas() {
                     const offset = outline_offsets[j];
                     tempCtx.drawImage(img, offset.x + tempCanvas.width / 2 - img.width / 2, offset.y + tempCanvas.height / 2 - img.height / 2);
                 }
-                // for (const offset in outline_offsets) {
-                // }
-                // tempCtx.drawImage(img, tempCanvas.width / 2 - img.width / 2, -1 + tempCanvas.height / 2 - img.height / 2);
-                // tempCtx.drawImage(img, 1 + tempCanvas.width / 2 - img.width / 2, tempCanvas.height / 2 - img.height / 2);
-                // tempCtx.drawImage(img, tempCanvas.width / 2 - img.width / 2, 1 + tempCanvas.height / 2 - img.height / 2);
-                // for (let xp = -1; xp < 2; xp++) {
-                //     for (let yp = -1; yp < 2; yp++) {
-                //         if (xp != 0 || yp != 0) {
-                //             tempCtx.drawImage(img, xp + tempCanvas.width / 2 - img.width / 2, yp + tempCanvas.height / 2 - img.height / 2);
-                //         }
-                //     }
-                // }
                 tempCtx.globalCompositeOperation = "source-in";
                 tempCtx.fillStyle = document.getElementById("background5").style.backgroundColor;
                 tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
