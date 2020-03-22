@@ -99,13 +99,17 @@ function create_button(i, o, indexes, sect) {
 
         area.appendChild(row);
 
-        var img = new Image();
-        img.id = inputId;
-        img.onload = function() {
-            images_loaded[this.id] = this;
+        if (colors[j].sprite != null) {
+            var img = new Image();
+            img.id = inputId;
+            images_loaded[inputId] = {};
+            images_loaded[inputId].outline = (colors[j].outline == true) ? true : false;
+            img.onload = function() {
+                images_loaded[this.id].image = this;
+                console.log(images_loaded[this.id]);
+            }
+            img.src = "object_layers/" + colors[j].sprite;
         }
-        img.src = "object_layers/" + input.id + ".png";
-
     }
     section.appendChild(area);
 }
@@ -129,6 +133,12 @@ function update_buttons() {
 }
 
 var wall_thickness = 32;
+var outline_offsets = [
+    { x: -1, y: 0 },
+    { x: 0, y: -1 },
+    { x: 1, y: 0 },
+    { x: 0, y: 1 }
+]
 
 function redrawCanvas() {
     var tileColor = document.getElementById("background0").style.backgroundColor;
@@ -155,27 +165,38 @@ function redrawCanvas() {
     var jscolors = currentSection.getElementsByClassName("jscolor");
     for (let i = 0; i < jscolors.length; i++) {
         const currcol = jscolors[i];
-        if (images_loaded[currcol.id]) {
-            var img = images_loaded[currcol.id];
-            for (let xp = -1; xp < 2; xp++) {
-                for (let yp = -1; yp < 2; yp++) {
-                    if (xp != 0 || yp != 0) {
-                        tempCtx.drawImage(img, xp + tempCanvas.width / 2 - img.width / 2, yp + tempCanvas.height / 2 - img.height / 2);
-                    }
+        if (images_loaded[currcol.id] && images_loaded[currcol.id].image) {
+            if (images_loaded[currcol.id].outline) {
+                var img = images_loaded[currcol.id].image;
+                for (let j = 0; j < outline_offsets.length; j++) {
+                    const offset = outline_offsets[j];
+                    tempCtx.drawImage(img, offset.x + tempCanvas.width / 2 - img.width / 2, offset.y + tempCanvas.height / 2 - img.height / 2);
                 }
+                // for (const offset in outline_offsets) {
+                // }
+                // tempCtx.drawImage(img, tempCanvas.width / 2 - img.width / 2, -1 + tempCanvas.height / 2 - img.height / 2);
+                // tempCtx.drawImage(img, 1 + tempCanvas.width / 2 - img.width / 2, tempCanvas.height / 2 - img.height / 2);
+                // tempCtx.drawImage(img, tempCanvas.width / 2 - img.width / 2, 1 + tempCanvas.height / 2 - img.height / 2);
+                // for (let xp = -1; xp < 2; xp++) {
+                //     for (let yp = -1; yp < 2; yp++) {
+                //         if (xp != 0 || yp != 0) {
+                //             tempCtx.drawImage(img, xp + tempCanvas.width / 2 - img.width / 2, yp + tempCanvas.height / 2 - img.height / 2);
+                //         }
+                //     }
+                // }
+                tempCtx.globalCompositeOperation = "source-in";
+                tempCtx.fillStyle = document.getElementById("background5").style.backgroundColor;
+                tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+                tempCtx.globalCompositeOperation = "source-over";
+                ctx.drawImage(tempCanvas, 0, 0);
             }
-            tempCtx.globalCompositeOperation = "source-in";
-            tempCtx.fillStyle = document.getElementById("background5").style.backgroundColor;
-            tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
-            tempCtx.globalCompositeOperation = "source-over";
-            ctx.drawImage(tempCanvas, 0, 0);
         }
     }
 
     for (let i = 0; i < jscolors.length; i++) {
         const currcol = jscolors[i];
-        if (images_loaded[currcol.id]) {
-            var img = images_loaded[currcol.id];
+        if (images_loaded[currcol.id] && images_loaded[currcol.id].image) {
+            var img = images_loaded[currcol.id].image;
             tempCtx.fillStyle = currcol.style.backgroundColor;
             tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
             tempCtx.globalCompositeOperation = "destination-in";
