@@ -108,7 +108,7 @@ function create_button(i, o, indexes, sect) {
                 images_loaded[this.id].image = this;
                 console.log(images_loaded[this.id]);
             }
-            img.src = "object_layers/" + colors[j].sprite;
+            img.src = "images/" + colors[j].sprite;
         }
     }
     section.appendChild(area);
