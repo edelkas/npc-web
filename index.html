@@ -20,8 +20,8 @@
 <body>
     <h1>N++ Palette Creator</h1>
     <div class="menu">
-        <button class="tab" onclick="tab('About', 'tab')">About</button>
-		<button class="tab" onclick="tab('Load', 'tab')">Load</button>
+        <button class="tab" onclick="tab('About', 'tab')" id="bAbout">About</button>
+		<button class="tab" onclick="tab('Load', 'tab')" id="bLoad">Load</button>
         <button id="Download" onclick="create_palette()">Download palette</button>
     </div>
     <div class="main-area">
@@ -173,12 +173,12 @@
         </div>
     </div>
     <div class="menu">
-		<button class="tab" onclick="tab('Objects', 'tab')" id="def">Objects</button>
-        <button class="tab" onclick="tab('Menu', 'tab')">Menu</button>
-        <button class="tab" onclick="tab('Editor', 'tab')">Editor</button>
-        <button class="tab" onclick="tab('Timebar', 'tab')">Timebar</button>
-        <button class="tab" onclick="tab('Headbands', 'tab')">Headbands</button>
-        <button class="tab" onclick="tab('Effects', 'tab')">Effects</button>
+		<button class="tab" onclick="tab('Objects', 'tab')" id="bObjects">Objects</button>
+        <button class="tab" onclick="tab('Menu', 'tab')" id="bMenu">Menu</button>
+        <button class="tab" onclick="tab('Editor', 'tab')" id="bEditor">Editor</button>
+        <button class="tab" onclick="tab('Timebar', 'tab')" id="bTimebar">Timebar</button>
+        <button class="tab" onclick="tab('Headbands', 'tab')" id="bHeadbands">Headbands</button>
+        <button class="tab" onclick="tab('Effects', 'tab')" id="bEffects">Effects</button>
 	</div>
     <a download="info" id="downloadlink" style="display: none"></a>
     <pre id="fileDisplayArea"></pre>

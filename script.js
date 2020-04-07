@@ -206,12 +206,13 @@ function tab(item, type) {
     obj = document.getElementById(item);
 	if (obj == null) {
 		console.log('null obj ' + item + ' ' + type);
-		//create_buttons();
 	}
+	// hide all tab contents
     tabs = document.getElementsByClassName(type == "tab" ? "page" : "section");
     for (i = 0; i < tabs.length; i++) {
         tabs[i].style.display = "none";
     }
+	// show our tab content
     obj.style.display = "block";
     if (type != "tab") {
         currentSection = obj;
@@ -221,7 +222,19 @@ function tab(item, type) {
         } else {
             document.getElementsByClassName("full-page")[0].style.display = "flex";
         }
+		
+		// un-highlight all tab menu buttons
+		btns = document.getElementsByClassName("tab");
+		console.log(btns);
+		for (i = 0; i < btns.length; i++) {
+			btns[i].classList = 'tab';
+		}
+		// highlight the tab menu button we have activated
+		var b = document.getElementById('b'+item);
+		b.classList = 'tab active';
+		
     }
+	// redraw canvas TODO: only redraw when it's being displayed
     redrawCanvas()
 }
 
