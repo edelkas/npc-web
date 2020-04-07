@@ -20,13 +20,9 @@
 <body>
     <h1>N++ Palette Creator</h1>
     <div class="menu">
-        <button class="tab" onclick="tab('Objects', 'tab')" id="def">Objects</button>
-        <button class="tab" onclick="tab('Menu', 'tab')">Menu</button>
-        <button class="tab" onclick="tab('Editor', 'tab')">Editor</button>
-        <button class="tab" onclick="tab('Timebar', 'tab')">Timebar</button>
-        <button class="tab" onclick="tab('Headbands', 'tab')">Headbands</button>
-        <button class="tab" onclick="tab('Effects', 'tab')">Effects</button>
-        <button class="tab" onclick="tab('About', 'tab')">HELP</button>
+        <button class="tab" onclick="tab('About', 'tab')">About</button>
+		<button class="tab" onclick="tab('Load', 'tab')">Load</button>
+        <button id="Download" onclick="create_palette()">Download palette</button>
     </div>
     <div class="main-area">
         <div class="full-page">
@@ -141,8 +137,7 @@
             </div>
         </div>
         <div id="About" class="page" style="display:none">
-            <h1>N++ Palette Creator - Eddy 2019</h1>
-            <p>This application will help you create your own customized color themes / palettes for N++. Read the following info to know how to implement the created palettes in the game.</p>
+            <p>This will help you create your own customized color themes / palettes for N++.</p>
             <h3>How to use:</h3>
             <ul>
                 <li>Load a palette by clicking the <strong>Load Palette</strong> button, a multiple selection dialog will open and you'll have to select all 35 files of the palette.</li>
@@ -162,25 +157,33 @@
                 <li>Custom palette spreadsheet: <a href="https://docs.google.com/spreadsheets/d/1I2f87Qhfs6rxzZq5dQRDbLKYyaGLqTdCkLqfNfrw1Mk" rel="nofollow">https://docs.google.com/spreadsheets/d/1I2f87Qhfs6rxzZq5dQRDbLKYyaGLqTdCkLqfNfrw1Mk</a></li>
                 <li>Palette color reference: <a href="https://pastebin.com/E01pEhy4" rel="nofollow">https://pastebin.com/E01pEhy4</a></li>
                 <li>Video tutorial: <a href="https://www.youtube.com/watch?v=Ql8gf6PPcUY" rel="nofollow">https://www.youtube.com/watch?v=Ql8gf6PPcUY</a></li>
+				<li>Code Repository: <a href="https://github.com/edelkas/npc-web" rel="nofollow">https://github.com/edelkas/npc-web</a></li>			
             </ul>
+        </div>
+		<div id="Load" class="page" style="display:none">
+            <p>Loading a palette will make you lose any unsaved changes!</p>
+            <h3>Defaults</h3>
+			<!-- todo: drop down box listing all default palettes from Palettes.zip --> 
+            <h3>Usermade</h3>
+			<!-- todo: drop down box listing all default palettes from allpalettes.zip --> 
+            <h3>Custom</h3>
+			<input id="file" type="file" name="file" class="inputfile" multiple="multiple">
+			<label for="file">Load palette</label>
+			<br><br>
         </div>
     </div>
     <div class="menu">
-        <!--<button id="Test" onclick="test()">TEST</button>-->
-        <button id="Download" onclick="create_palette()">Download palette</button>
-        <input id="file" type="file" name="file" class="inputfile" multiple="multiple">
-        <label for="file">Load palette</label>
-    </div>
+		<button class="tab" onclick="tab('Objects', 'tab')" id="def">Objects</button>
+        <button class="tab" onclick="tab('Menu', 'tab')">Menu</button>
+        <button class="tab" onclick="tab('Editor', 'tab')">Editor</button>
+        <button class="tab" onclick="tab('Timebar', 'tab')">Timebar</button>
+        <button class="tab" onclick="tab('Headbands', 'tab')">Headbands</button>
+        <button class="tab" onclick="tab('Effects', 'tab')">Effects</button>
+	</div>
     <a download="info" id="downloadlink" style="display: none"></a>
     <pre id="fileDisplayArea"></pre>
-    <!-- <script>
-        document.getElementById("def").click();
-    </script> -->
-    <!--<script>document.getElementById("l00").click();</script>-->
-    <script>
-        create_buttons()
-    </script>
-    <footer>
+
+    <!--<footer>
         <table>
             <tr>
                 <td>Author:</td>
@@ -195,7 +198,7 @@
                 <td>27/Aug/2019</td>
             </tr>
         </table>
-    </footer>
+    </footer>-->
 </body>
 
 </html>
