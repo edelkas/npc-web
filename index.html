@@ -21,8 +21,8 @@
     <h1>N++ Palette Creator</h1>
     <div class="menu">
         <button class="tab" onclick="tab('About', 'tab')" id="bAbout">About</button>
-		<button class="tab" onclick="tab('Load', 'tab')" id="bLoad">Load</button>
-        <button id="Download" onclick="create_palette()">Download palette</button>
+		<button class="tab" onclick="tab('Load', 'tab')" id="bLoad">Import</button>
+        <button id="Download" onclick="create_palette()">Export</button>
     </div>
     <div class="main-area">
         <div class="full-page">
@@ -162,14 +162,21 @@
         </div>
 		<div id="Load" class="page" style="display:none">
             <p>Loading a palette will make you lose any unsaved changes!</p>
-            <h3>Defaults</h3>
+            <h3>Metanet Palettes</h3>
+			<label for="default_palettes">Pick a Metanet Palette:</label>
+			<select id="dpal">
+			</select>
+			<br /><br />
+			<input id="file3" type="file3" name="file3" class="inputfile" multiple="multiple">
+			<label for="file3">Load Palette</label>
+			<br /><br />
 			<!-- todo: drop down box listing all default palettes from Palettes.zip --> 
-            <h3>Usermade</h3>
+            <h3>Custom Palettes</h3>
 			<!-- todo: drop down box listing all default palettes from allpalettes.zip --> 
             <h3>Custom</h3>
 			<input id="file" type="file" name="file" class="inputfile" multiple="multiple">
-			<label for="file">Load palette</label>
-			<br><br>
+			<label for="file">Load Palette (35 .tga files)</label>
+			<br /><br /><br />
         </div>
     </div>
     <div class="menu">

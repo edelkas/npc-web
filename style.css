@@ -39,6 +39,10 @@
     z-index: -1;
 }
 
+.inputfile+label {
+	background-color: #ccc;
+}
+
 .inputfile:focus+label,
 .inputfile+label:hover {
     background-color: #ddd;

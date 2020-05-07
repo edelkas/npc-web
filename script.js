@@ -143,7 +143,7 @@ var outline_offsets = [
 
 function redrawCanvas() {
 	if (currentSection == null) {
-		console.log('no current section selected');
+		//console.log('no current section selected');
 		return;
 	}
     var tileColor = document.getElementById("background0").style.backgroundColor;
@@ -225,7 +225,7 @@ function tab(item, type) {
 		
 		// un-highlight all tab menu buttons
 		btns = document.getElementsByClassName("tab");
-		console.log(btns);
+		//console.log(btns);
 		for (i = 0; i < btns.length; i++) {
 			btns[i].classList = 'tab';
 		}
@@ -305,11 +305,37 @@ function check_palette() {
 }
 
 function init_stuff_onload() {
-    files = {};
-    files_loaded = {};
+
+	// Populate Metanet Palettes dropdown list
+	var fileInput3 = document.getElementById('file3');
+    fileInput3.addEventListener('change', function(e) {
+		//////////////////// NOT WORKING
+		console.log('hei');
+		//var dateBefore = new Date();
+		var f = fileInput3.files[0]
+		console.log(f);
+		JSZip.loadAsync(f)                                   // 1) read the Blob
+			.then(function(zip) {
+				var dateAfter = new Date();
+				//$title.append($("<span>", {
+				//    "class": "small",
+				//    text:" (loaded in " + (dateAfter - dateBefore) + "ms)"
+				//}));
+
+				zip.forEach(function (relativePath, zipEntry) {  // 2) print entries
+					var dpal = document.getElementById("dpal");
+					dpal.innerHTML += '<option value="'+zipEntry.name+'">'+zipEntry.name+'</option>';
+				});
+			}, function (e) {
+				console.log(e.message);
+			});
+	});
+		
+    // Listener to Load Palette (35 .tga files)
     var fileInput = document.getElementById('file');
-    // Load and read the selected files
     fileInput.addEventListener('change', function(e) {
+		files = {};
+		files_loaded = {};
         // Retrieve selected files
         var aux = fileInput.files;
         var files_raw = [];
