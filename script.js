@@ -117,6 +117,7 @@ function create_button(i, o, indexes, sect) {
 // Create all buttons, on load
 function create_buttons() {
     for (var i = 0; i < buttons.length; i++) {
+		//console.log( buttons[i]["name"] + ' ' +  buttons[i]["indexes"] + ' ' + buttons[i]["section"]);
         create_button(i, buttons[i]["name"], buttons[i]["indexes"], buttons[i]["section"]);
     }
     log("Info: Successfully loaded NPC.");
@@ -141,6 +142,10 @@ var outline_offsets = [
 ]
 
 function redrawCanvas() {
+	if (currentSection == null) {
+		//console.log('no current section selected');
+		return;
+	}
     var tileColor = document.getElementById("background0").style.backgroundColor;
     var tileOutline = document.getElementById("background1").style.backgroundColor;
     var backgroundColor = document.getElementById("background2").style.backgroundColor;
@@ -199,20 +204,37 @@ function redrawCanvas() {
 function tab(item, type) {
     var i, tabs, obj;
     obj = document.getElementById(item);
+	if (obj == null) {
+		console.log('null obj ' + item + ' ' + type);
+	}
+	// hide all tab contents
     tabs = document.getElementsByClassName(type == "tab" ? "page" : "section");
     for (i = 0; i < tabs.length; i++) {
         tabs[i].style.display = "none";
     }
+	// show our tab content
     obj.style.display = "block";
     if (type != "tab") {
         currentSection = obj;
     } else {
-        if (obj.id == "About") {
+        if ((obj.id == "About") || (obj.id == "Load")) {
             document.getElementsByClassName("full-page")[0].style.display = "none";
         } else {
             document.getElementsByClassName("full-page")[0].style.display = "flex";
         }
+		
+		// un-highlight all tab menu buttons
+		btns = document.getElementsByClassName("tab");
+		//console.log(btns);
+		for (i = 0; i < btns.length; i++) {
+			btns[i].classList = 'tab';
+		}
+		// highlight the tab menu button we have activated
+		var b = document.getElementById('b'+item);
+		b.classList = 'tab active';
+		
     }
+	// redraw canvas TODO: only redraw when it's being displayed
     redrawCanvas()
 }
 
@@ -281,12 +303,39 @@ function check_palette() {
         setTimeout(check_palette, 100);
     }
 }
-window.onload = function() {
-    files = {};
-    files_loaded = {};
+
+function init_stuff_onload() {
+
+	// Populate Metanet Palettes dropdown list
+	var fileInput3 = document.getElementById('file3');
+    fileInput3.addEventListener('change', function(e) {
+		//////////////////// NOT WORKING
+		console.log('hei');
+		//var dateBefore = new Date();
+		var f = fileInput3.files[0]
+		console.log(f);
+		JSZip.loadAsync(f)                                   // 1) read the Blob
+			.then(function(zip) {
+				var dateAfter = new Date();
+				//$title.append($("<span>", {
+				//    "class": "small",
+				//    text:" (loaded in " + (dateAfter - dateBefore) + "ms)"
+				//}));
+
+				zip.forEach(function (relativePath, zipEntry) {  // 2) print entries
+					var dpal = document.getElementById("dpal");
+					dpal.innerHTML += '<option value="'+zipEntry.name+'">'+zipEntry.name+'</option>';
+				});
+			}, function (e) {
+				console.log(e.message);
+			});
+	});
+		
+    // Listener to Load Palette (35 .tga files)
     var fileInput = document.getElementById('file');
-    // Load and read the selected files
     fileInput.addEventListener('change', function(e) {
+		files = {};
+		files_loaded = {};
         // Retrieve selected files
         var aux = fileInput.files;
         var files_raw = [];
@@ -332,6 +381,21 @@ window.onload = function() {
     // Rendering stuff
     sprite_canvas = document.getElementById("sprite-renderer");
     ctx = this.sprite_canvas.getContext("2d");
+	
+	// Create the buttons
+	create_buttons();
+	
+	// Init jscolor
+	jscolor.installByClassName('jscolor');
+}
+
+if (window.addEventListener) // W3C standard
+{
+  window.addEventListener('load', init_stuff_onload, false);
+} 
+else if (window.attachEvent) // Microsoft
+{
+  window.attachEvent('onload', init_stuff_onload);
 }
 
 /**
@@ -391,51 +455,7 @@ function check_file(filename) {
     var height = parseInt(header.slice(14, 16).reverse().join(""), 16);
     var pixel_depth = parseInt(header[16], 16);
     var colors = Math.round(width / 64);
-    // The following used to be check from when I wasn't using a TGA library
-    /*
-    if (colormap_type != 0) {
-    	errorHappened = true;
-    	errorMessage += "* The image is colormapped (not supported).\n";
-    }
-    switch (image_type) {
-    	case 0:
-    		errorHappened = true;
-    		errorMessage += "* No image data found.\n";
-    		break;
-    	case 1:
-    		errorHappened = true;
-    		errorMessage += "* The image is colormapped (not supported).\n";
-    		break;
-    	case 2:
-    		// Raw true-color image, supported.
-    		break;
-    	case 3:
-    		errorHappened = true;
-    		errorMessage += "* The image is grayscale (not supported).\n";
-    		break;
-    	case 9:
-    		errorHappened = true;
-    		errorMessage += "* The image is colormapped (not supported).\n";
-    		break;
-    	case 10:
-    		// Run-length encoded true-color image, supported.
-    		break;
-    	case 11:
-    		errorHappened = true;
-    		errorMessage += "* The image is grayscale (not supported).\n";
-    		break;
-    	default:
-    		errorHappened = true;
-    		errorMessage += ("* Invalid image type (" + image_type + ").\n");
-    		break;
-    }
-
-    if (pixel_depth != 24 && pixel_depth != 32) {
-    	errorHappened = true;
-    	errorMessage += ("* The pixel depth is " + pixel_depth.toString()
-    																				 + " (only 24 and 32 supported).\n");
-    }
-    */
+    
     if (colors != objects[filename].length) {
         errorHappened = true;
         errorMessage += ("* The image doesn't have the right amount of colors (has " +

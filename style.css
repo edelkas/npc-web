@@ -27,7 +27,7 @@
 }
 
 .menu button.active {
-    background-color: #ccc;
+	background-color: #ccc;
 }
 
 .inputfile {
@@ -37,6 +37,10 @@
     overflow: hidden;
     position: absolute;
     z-index: -1;
+}
+
+.inputfile+label {
+	background-color: #ccc;
 }
 
 .inputfile:focus+label,
