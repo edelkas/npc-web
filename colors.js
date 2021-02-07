@@ -163,7 +163,7 @@ var entityDoorExitSwitch = [
     { text: "Exit switch background (toggled).", color: "8C9487", sprite: "entityDoorExitSwitch4.png" }
 ]
 var entityDoorRegular = [
-    { text: "Regular door.", color: "C2CEB1" }
+    { text: "Regular door.", color: "C2CEB1", sprite: "06-0.png" }
 ]
 var entityDoorLocked = [
     { text: "Locked door bar.", color: "323323" },
@@ -186,59 +186,59 @@ var entityDoorTrap = [
     { text: "Trap door switch background (toggled).", color: "8C9487" }
 ]
 var entityLaunchPad = [
-    { text: "Launchpad big pad.", color: "999999" },
-    { text: "Launchpad small pad.", color: "000000" }
+    { text: "Launchpad big pad.", color: "999999", sprite: "0A-0.png" },
+    { text: "Launchpad small pad.", color: "000000", sprite: "0A-1.png" }
 ]
 var entityOneWayPlatform = [
-    { text: "Oneway platform long platform.", color: "3C413B" },
-    { text: "Oneway platform short platform.", color: "6D7668" }
+    { text: "Oneway platform long platform.", color: "3C413B", sprite: "0B-0.png" },
+    { text: "Oneway platform short platform.", color: "6D7668", sprite: "0B-1.png" }
 ]
 var entityDroneChaingun = [
-    { text: "Chaingun drone background.", color: "707070" },
-    { text: "Chaingun drone border, chaingun bullets.", color: "000000" }
+    { text: "Chaingun drone background.", color: "707070", sprite: "0C-0.png" },
+    { text: "Chaingun drone border, chaingun bullets.", color: "000000", sprite: "0C-1.png" }
 ]
 var entityDroneLaser = [
-    { text: "Laser drone interior, firing. Also, laser 1.", color: "910A46" },
+    { text: "Laser drone interior, firing. Also, laser 1.", color: "910A46", sprite: "0D-2.png" },
     { text: "Laser drone laser 2.", color: "670732" },
     { text: "Laser drone border.", color: "000000" },
     { text: "Laser drone aiming line.", color: "910A46" }
 ]
 var entityDroneZap = [
-    { text: "Zap drone and micro drone background.", color: "48C1C8" },
-    { text: "Zap drone and micro drone border.", color: "202020" }
+    { text: "Zap drone and micro drone background.", color: "48C1C8", sprite: "0E-0.png" },
+    { text: "Zap drone and micro drone border.", color: "202020", sprite: "0E-1.png" }
 ]
 var entityDroneChaser = [
-    { text: "Chaser drone background.", color: "48C1C8" },
-    { text: "Chaser drone border.", color: "202020" }
+    { text: "Chaser drone background.", color: "48C1C8", sprite: "0F-0.png" },
+    { text: "Chaser drone border.", color: "202020", sprite: "0F-1.png" }
 ]
 var entityFloorGuard = [
-    { text: "Floorguard main color.", color: "000000" },
-    { text: "Floorguard eye.", color: "910A46" }
+    { text: "Floorguard main color.", color: "000000", sprite: "10-0.png" },
+    { text: "Floorguard eye.", color: "910A46", sprite: "10-1.png" }
 ]
 var entityBounceBlock = [
-    { text: "Bounceblock interior.", color: "798076" },
-    { text: "Bounceblock border.", color: "000000" }
+    { text: "Bounceblock interior.", color: "798076", sprite: "11-0.png" },
+    { text: "Bounceblock border.", color: "000000", sprite: "11-1.png" }
 ]
 var entityRocket = [
-    { text: "Rocket turret center.", color: "910A46" },
-    { text: "Rocket turret border.", color: "000000" },
+    { text: "Rocket turret center.", color: "910A46", sprite: "12-0.png" },
+    { text: "Rocket turret border.", color: "000000", sprite: "12-1.png" },
     { text: "Rocket color.", color: "000000" },
     { text: "Rocket fumes.", color: "778073" }
 ]
 var entityTurret = [
-    { text: "Gauss turret interior.", color: "910A46" },
-    { text: "Gauss turret border.", color: "000000" },
-    { text: "Gauss turret aiming cross.", color: "000000" },
+    { text: "Gauss turret interior.", color: "910A46", sprite: "13-0.png"  },
+    { text: "Gauss turret border.", color: "000000", sprite: "13-1.png"  },
+    { text: "Gauss turret aiming cross.", color: "000000"  },
     { text: "Gauss turret bullet.", color: "910A46" },
     { text: "Gauss turret squiggly lines.", color: "000000" }
 ]
 var entityThwomp = [
-    { text: "Thwump border.", color: "4D4D4D" },
-    { text: "Thwump interior.", color: "798076" },
-    { text: "Thwump ray.", color: "48C1C8" }
+    { text: "Thwump border.", color: "4D4D4D", sprite: "1C-2.png" },
+    { text: "Thwump interior.", color: "798076", sprite: "1C-1.png" },
+    { text: "Thwump ray.", color: "48C1C8", sprite: "1C-0.png" }
 ]
 var entityEvilNinja = [
-    { text: "Evil ninja spawn.", color: "000000" },
+    { text: "Evil ninja spawn.", color: "000000", sprite: "entityEvilNinja0.png" },
     { text: "Evil ninja.", color: "000000" }
 ]
 var entityDualLaser = [
@@ -246,17 +246,17 @@ var entityDualLaser = [
     { text: "Laser turrets laser.", color: "910A46" }
 ]
 var entityBoostPad = [
-    { text: "Boost pad (inactive).", color: "000000" },
-    { text: "Boost pad (active).", color: "C2CEB1" }
+    { text: "Boost pad (inactive).", color: "000000", sprite: "18-0.png" },
+    { text: "Boost pad (active).", color: "C2CEB1", sprite: "18-0.png" }
 ]
 var entityBat = [
-    { text: "Deathball inner circle.", color: "3F1CB2" },
-    { text: "Deathball middle circle.", color: "5F0D6B" },
-    { text: "Deathball outter circle.", color: "9100A4" }
+    { text: "Deathball inner circle.", color: "3F1CB2", sprite: "19-0.png" },
+    { text: "Deathball middle circle.", color: "5F0D6B", sprite: "19-1.png" },
+    { text: "Deathball outter circle.", color: "9100A4", sprite: "19-2.png" }
 ]
 var entityEyeBat = [
-    { text: "Mini background.", color: "FFFFFF" },
-    { text: "Mini eye.", color: "FFFFFF" }
+    { text: "Mini background.", color: "FFFFFF", sprite: "1A-1.png" },
+    { text: "Mini eye.", color: "FFFFFF", sprite: "1A-0.png" }
 ]
 var entityShoveThwomp = [
     { text: "Shove thwump interior.", color: "4F564D" },
