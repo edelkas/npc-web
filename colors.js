@@ -163,11 +163,11 @@ var entityDoorExitSwitch = [
     { text: "Exit switch background (toggled).", color: "8C9487", sprite: "entityDoorExitSwitch4.png" }
 ]
 var entityDoorRegular = [
-    { text: "Regular door.", color: "C2CEB1", sprite: "06-0.png" }
+    { text: "Regular door.", color: "C2CEB1", sprite: "05-0.png" }
 ]
 var entityDoorLocked = [
-    { text: "Locked door bar.", color: "323323" },
-    { text: "Locked door center.", color: "C2CEB1" },
+    { text: "Locked door bar.", color: "323323", sprite: "06-0.png" },
+    { text: "Locked door center.", color: "C2CEB1", sprite: "06-1.png" },
     { text: "Locked door switch button (untoggled).", color: "000000" },
     { text: "Locked door switch button (toggled).", color: "323323" },
     { text: "Locked door switch border (untoggled).", color: "323323" },
@@ -198,9 +198,9 @@ var entityDroneChaingun = [
     { text: "Chaingun drone border, chaingun bullets.", color: "000000", sprite: "0C-1.png" }
 ]
 var entityDroneLaser = [
-    { text: "Laser drone interior, firing. Also, laser 1.", color: "910A46", sprite: "0D-2.png" },
+    { text: "Laser drone interior, firing. Also, laser 1.", color: "910A46" },
     { text: "Laser drone laser 2.", color: "670732" },
-    { text: "Laser drone border.", color: "000000" },
+    { text: "Laser drone border.", color: "000000", sprite: "0D-2.png" },
     { text: "Laser drone aiming line.", color: "910A46" }
 ]
 var entityDroneZap = [
