@@ -233,17 +233,17 @@ var entityTurret = [
     { text: "Gauss turret squiggly lines.", color: "000000" }
 ]
 var entityThwomp = [
-    { text: "Thwump border.", color: "4D4D4D", sprite: "1C-2.png" },
-    { text: "Thwump interior.", color: "798076", sprite: "1C-1.png" },
-    { text: "Thwump ray.", color: "48C1C8", sprite: "1C-0.png" }
+    { text: "Thwump border.", color: "4D4D4D", sprite: "entityThwomp0.png"},
+    { text: "Thwump interior.", color: "798076", sprite: "entityThwomp1.png" },
+    { text: "Thwump ray.", color: "48C1C8" }
 ]
 var entityEvilNinja = [
     { text: "Evil ninja spawn.", color: "000000", sprite: "entityEvilNinja0.png" },
     { text: "Evil ninja.", color: "000000" }
 ]
 var entityDualLaser = [
-    { text: "Laser turrets turret.", color: "000000" },
-    { text: "Laser turrets laser.", color: "910A46" }
+    { text: "Laser turrets turret.", color: "000000", sprite: "entityDualLaser0.png" },
+    { text: "Laser turrets laser.", color: "910A46", sprite: "entityDualLaser1.png" }
 ]
 var entityBoostPad = [
     { text: "Boost pad (inactive).", color: "000000", sprite: "18-0.png" },
@@ -259,9 +259,9 @@ var entityEyeBat = [
     { text: "Mini eye.", color: "FFFFFF", sprite: "1A-0.png" }
 ]
 var entityShoveThwomp = [
-    { text: "Shove thwump interior.", color: "4F564D" },
-    { text: "Shove thwump ray.", color: "48C1C8" },
-    { text: "Shove thwump armor.", color: "000000" }
+    { text: "Shove thwump interior.", color: "4F564D", sprite: "1C-2.png"  },
+    { text: "Shove thwump ray.", color: "48C1C8", sprite: "1C-1.png" },
+    { text: "Shove thwump armor.", color: "000000", sprite: "1C-0.png"}
 ]
 
 var objects = {
