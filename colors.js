@@ -59,8 +59,8 @@ var objects = {
         { text: "Toggled switch background.", color: "8C9487", sprite: "07-4b.png" },
     ],
     entityDoorTrap: [
-        { text: "Trap door bar.", color: "323323" },
-        { text: "Trap door bulges.", color: "C2CEB1" },
+        { text: "Trap door bar.", color: "323323", sprite: "08-1.png" },
+        { text: "Trap door bulges.", color: "C2CEB1", sprite: "08-2.png" },
         { text: "Untoggled switch border.", color: "323323", sprite: "09-2.png" },
         { text: "Untoggled switch background.", color: "8C9487", sprite: "09-4.png" },
         { text: "Toggled switch border.", color: "798076", sprite: "09-2b.png" },
