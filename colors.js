@@ -142,9 +142,9 @@ var objects = {
         { text: "Mini eye.", color: "FFFFFF", sprite: "1A-0.png" }
     ],
     entityShoveThwomp: [
-        { text: "Shove thwump interior.", color: "4F564D", sprite: "1C-2.png"  },
+        { text: "Shove thwump interior.", color: "4F564D", sprite: "1C-0.png"  },
         { text: "Shove thwump ray.", color: "48C1C8", sprite: "1C-1.png" },
-        { text: "Shove thwump armor.", color: "000000", sprite: "1C-0.png"}
+        { text: "Shove thwump armor.", color: "000000", sprite: "1C-2.png"}
     ],
 
     // ---------------------------
