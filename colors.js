@@ -7,9 +7,9 @@ var objects = {
         { text: "Tiles", color: "4F564D" },
         { text: "Tile outline", color: "4F564D" },
         { text: "Background", color: "8C9487", sprite: "outlineTester.png", outline: true },
+        { text: "Entity outline", color: "8C9487" },
         { text: "?", color: "8C9487" },
-        { text: "?", color: "8C9487" },
-        { text: "Entity outline", color: "8C9487" }
+        { text: "?", color: "8C9487" }
     ],
     ninja: [
         { text: "Ninja 1. Also, replay inputs.", color: "000000", sprite: "ninja0.png", outline: true },
@@ -51,26 +51,26 @@ var objects = {
     entityDoorLocked: [
         { text: "Locked door bar.", color: "323323", sprite: "06-0.png" },
         { text: "Locked door center.", color: "C2CEB1", sprite: "06-1.png" },
-        { text: "Locked door switch button (untoggled).", color: "000000" },
-        { text: "Locked door switch button (toggled).", color: "323323" },
-        { text: "Locked door switch border (untoggled).", color: "323323" },
-        { text: "Locked door switch border (toggled).", color: "798076" },
-        { text: "Locked door switch background (toggled).", color: "8C9487" },
-        { text: "Locked door switch background (untoggled).", color: "8C9487" }
+        { text: "Untoggled switch button.", color: "000000", sprite: "07-0.png" },
+        { text: "Untoggled switch border.", color: "323323", sprite: "07-1.png" },
+        { text: "Untoggled switch background.", color: "8C9487", sprite: "07-4.png" },
+        { text: "Toggled switch button.", color: "323323", sprite: "07-0b.png" },
+        { text: "Toggled switch border.", color: "798076", sprite: "07-1b.png" },
+        { text: "Toggled switch background.", color: "8C9487", sprite: "07-4b.png" },
     ],
     entityDoorTrap: [
         { text: "Trap door bar.", color: "323323" },
         { text: "Trap door bulges.", color: "C2CEB1" },
+        { text: "Untoggled switch border.", color: "323323", sprite: "09-2.png" },
+        { text: "Untoggled switch background.", color: "8C9487", sprite: "09-4.png" },
+        { text: "Toggled switch border.", color: "798076", sprite: "09-2b.png" },
+        { text: "Toggled switch background.", color: "8C9487", sprite: "09-4b.png" },
         { text: "?", color: "323323" },
-        { text: "?", color: "323323" },
-        { text: "Trap door switch border (untoggled).", color: "323323" },
-        { text: "Trap door switch border (toggled).", color: "798076" },
-        { text: "Trap door switch background (untoggled).", color: "8C9487" },
-        { text: "Trap door switch background (toggled).", color: "8C9487" }
+        { text: "?", color: "323323" }
     ],
     entityLaunchPad: [
-        { text: "Launchpad big pad.", color: "999999", sprite: "0A-0.png" },
-        { text: "Launchpad small pad.", color: "000000", sprite: "0A-1.png" }
+        { text: "Launchpad long pad.", color: "999999", sprite: "0A-0.png" },
+        { text: "Launchpad short pad.", color: "000000", sprite: "0A-1.png" }
     ],
     entityOneWayPlatform: [
         { text: "Oneway platform long platform.", color: "3C413B", sprite: "0B-0.png" },
@@ -118,7 +118,7 @@ var objects = {
     entityThwomp: [
         { text: "Thwump border.", color: "4D4D4D", sprite: "entityThwomp0.png"},
         { text: "Thwump interior.", color: "798076", sprite: "entityThwomp1.png" },
-        { text: "Thwump ray.", color: "48C1C8" }
+        { text: "Thwump ray.", color: "48C1C8", sprite: "entityThwomp2.png" }
     ],
     entityEvilNinja: [
         { text: "Evil ninja spawn.", color: "000000", sprite: "entityEvilNinja0.png" },
@@ -130,7 +130,7 @@ var objects = {
     ],
     entityBoostPad: [
         { text: "Boost pad (inactive).", color: "000000", sprite: "18-0.png" },
-        { text: "Boost pad (active).", color: "C2CEB1", sprite: "18-0.png" }
+        { text: "Boost pad (active).", color: "C2CEB1", sprite: "18-0b.png" }
     ],
     entityBat: [
         { text: "Deathball inner circle.", color: "3F1CB2", sprite: "19-0.png" },
@@ -152,9 +152,9 @@ var objects = {
 
     menuGeneral: [
         { text: "General menu background.", color: "323323" },
-        { text: "\"Color / Music\" and \"Social\" menu panels background.", color: "666E62" },
         { text: "Main menu: Text, unselected (see 11). Help: Directional arrows. Also, uncompleted challenges (both requirements text and brackets) while playing the level (see 11, also see timeBarRace 1 and 2).", color: "ECFFDF" },
         { text: "Main menu: Text, selected (see 5). Logo color. Cursor color. Also, completed challenges (brackets) when playng the level (see 5, also see timeBarRace 1 and 2).", color: "FECC04" },
+        { text: "\"Color / Music\" and \"Social\" menu panels background.", color: "666E62" },
         { text: "\"Color / Music\" and \"Social\" menus header text (see 30). The other text is the same, but more transparent.", color: "323323" },
         { text: "In \"Color / Music\" menu, the selected option; and in \"Social\" menu, the option name (see 18).", color: "FECC04" },
     ],
@@ -180,11 +180,11 @@ var objects = {
 
     menuEpisodes: [
         { text: "Uncompleted episode background (see 8). Profile: Uncompleted episode. Editor: Level name when not being played.", color: "CBDCC1" },
+        { text: "Uncompleted episode text (see 31).", color: "000000" },
         { text: "Completed episode background (see 6). Profile: Completed episode.", color: "666E62" },
+        { text: "Completed episode text (see 24).", color: "ECFFDF" },
         { text: "Episode box outline (see 33).", color: "737C6E" },
         { text: "Outline for selected episode / level / panel. Separator between level name and info. Level loading spiral. Scroll bar and its triangle in level view and in the editor level list. Also \"Server error\" when loading userlevels.", color: "ECFFDF" },
-        { text: "Uncompleted episode text (see 31).", color: "000000" },
-        { text: "Completed episode text (see 24).", color: "ECFFDF" },
     ],
 
     menuPause: [
