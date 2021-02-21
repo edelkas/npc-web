@@ -11,6 +11,7 @@ var files_loaded = {};
 var images_loaded = {};
 
 var sprite_canvas, ctx, currentSection;
+var metanet_palettes;
 
 // Creates the buttons of each section, on load
 function create_button(i, label, filename, indices, listId, sectionId) {
@@ -43,7 +44,6 @@ function create_button(i, label, filename, indices, listId, sectionId) {
         var inputId = filename + idx
         input.id = inputId;
         input.classList = "jscolor {onFineChange:'redrawCanvas(this)'}";
-        input.value = colors[j]["color"];
         inputDiv.appendChild(input);
 
         var textDiv = document.createElement("div");
@@ -98,9 +98,7 @@ function create_buttons() {
 // Update value of variables with selected colors from colorpickers
 function update_buttons() {
     for (var o in objects) {
-        console.info({ o })
         for (var j = 0; j < objects[o].length; j++) {
-            console.info(o + j)
             //if (document.getElementById(o+j) === null) { console.log(o+j); }
             objects[o][j]["color"] = document.getElementById(o + j).value;
         }
@@ -278,77 +276,122 @@ function check_palette() {
     }
 }
 
-function init_stuff_onload() {
-	// Populate Metanet Palettes dropdown list
-	// var fileInput3 = document.getElementById('file3');
-    // fileInput3.addEventListener('change', function(e) {
-	// 	//////////////////// NOT WORKING
-	// 	console.log('hei');
-	// 	//var dateBefore = new Date();
-	// 	var f = fileInput3.files[0]
-	// 	console.log(f);
-	// 	JSZip.loadAsync(f)                                   // 1) read the Blob
-	// 		.then(function(zip) {
-	// 			var dateAfter = new Date();
-	// 			//$title.append($("<span>", {
-	// 			//    "class": "small",
-	// 			//    text:" (loaded in " + (dateAfter - dateBefore) + "ms)"
-	// 			//}));
+function populate_metanet_dropdown () {
+    // Populate Metanet Palettes dropdown list
+    metanet_palettes
+        .then(files => {
+            const palette_names = []
+            files.forEach((_, file) => {
+                if (file.dir) {
+                    palette_names.push(file.name.slice(0, -1))
+                }
+            })
+            palette_names.sort((a, b) => {
+                return (a.toLowerCase() > b.toLowerCase()) ? 1 : -1
+            })
 
-	// 			zip.forEach(function (relativePath, zipEntry) {  // 2) print entries
-	// 				var dpal = document.getElementById("dpal");
-	// 				dpal.innerHTML += '<option value="'+zipEntry.name+'">'+zipEntry.name+'</option>';
-	// 			});
-	// 		}, function (e) {
-	// 			console.log(e.message);
-	// 		});
-	// });
+            const fileInput3 = document.getElementById('file3');
+            const dpal = document.getElementById("dpal");
+
+            palette_names.forEach(name => {
+                const opt = document.createElement("option")
+                const text = document.createTextNode(name)
+                opt.appendChild(text)
+                opt.value = name
+                dpal.appendChild(opt)
+            })
+
+            fileInput3.addEventListener('change', (e) => {
+                const val = e.target.value
+                console.info({ val })
+                load_palette(val)
+            })
+
+        })
+}
+
+function load_palette (aux) {
+    files = {};
+    files_loaded = {};
+    // Retrieve selected files
+    var files_raw = [];
+    for (var i = 0; i < aux.length; i++) {
+        files_raw[i] = aux[i];
+    }
+    // Remove extraneous files
+    var objs = Object.keys(objects);
+    for (var i = 0; i < files_raw.length; i++) {
+        var end_index = files_raw[i].name.length - 4;
+        var filename = files_raw[i].name.substring(0, end_index);
+        if (!objs.includes(filename)) {
+            files_raw.splice(i, 1);
+        }
+    }
+    // Check for existence of all palette files
+    var filenames = [];
+    for (var i = 0; i < files_raw.length; i++) { filenames.push(files_raw[i].name); }
+    var inexistant = [];
+    var inex_count = 0;
+    for (var i = 0; i < objs.length; i++) {
+        if (!filenames.includes(objs[i] + ".tga")) {
+            inexistant.push(objs[i] + ".tga");
+            inex_count += 1;
+        }
+    }
+    // Proceed only if all files were correct
+    if (inex_count > 0) {
+        // Clean files
+        alert("Missing files:\n\n" + inexistant.join("\n"));
+        log("Error loading palette: Missing " + inex_count.toString() + " files.");
+    } else {
+        // Read the files
+        for (var i = 0; i < files_raw.length; i++) {
+            var file = files_raw[i];
+            var reader = new FileReader();
+            reader.f = file;
+            reader.onload = list;
+            reader.readAsArrayBuffer(file);
+        }
+        // Since file reading is done asynchronously, we periodically check for
+        // the palette's availability until it's ready.
+        check_palette();
+    }
+}
+
+function load_zipped_palette (palette_name) {
+    metanet_palettes
+        .then(function (zip) {
+            const keys = Object.keys(objects);
+            return Promise.all(keys.map(key => {
+                const filename = key + ".tga"
+                return zip.folder(palette_name).file(filename).async("blob")
+                    .then(blob => {
+                        return new File([blob], filename)
+                    })
+            }))
+        })
+        .then(load_palette)
+}
+
+function init_stuff_onload() {
+    // fetch ZIP of metanet palettes
+    metanet_palettes = fetch('https://edelkas.github.io/npc-web/metanet_palettes/metanet_palettes.zip')
+        .then(function (response) {
+            return (response.status === 200 || response.status === 0)
+                ? Promise.resolve(response.blob())
+                : Promise.reject(new Error(response.statusText))
+        })
+        .then(JSZip.loadAsync)
+        .then(function(zip) {
+            load_zipped_palette("vasquez")
+            populate_metanet_dropdown()
+            return zip
+        })
 
     // Listener to Load Palette (35 .tga files)
     var fileInput = document.getElementById('file');
     fileInput.addEventListener('change', function(e) {
-		files = {};
-		files_loaded = {};
-        // Retrieve selected files
-        var aux = fileInput.files;
-        var files_raw = [];
-        for (var i = 0; i < aux.length; i++) { files_raw[i] = aux[i]; }
-        // Remove extraneous files
-        var objs = Object.keys(objects);
-        for (var i = 0; i < files_raw.length; i++) {
-            var end_index = files_raw[i].name.length - 4;
-            var filename = files_raw[i].name.substring(0, end_index);
-            if (!objs.includes(filename)) { files_raw.splice(i, 1); }
-        }
-        // Check for existence of all palette files
-        var filenames = [];
-        for (var i = 0; i < files_raw.length; i++) { filenames.push(files_raw[i].name); }
-        var inexistant = [];
-        var inex_count = 0;
-        for (var i = 0; i < objs.length; i++) {
-            if (!filenames.includes(objs[i] + ".tga")) {
-                inexistant.push(objs[i] + ".tga");
-                inex_count += 1;
-            }
-        }
-        // Proceed only if all files were correct
-        if (inex_count > 0) {
-            // Clean files
-            alert("Missing files:\n\n" + inexistant.join("\n"));
-            log("Error loading palette: Missing " + inex_count.toString() + " files.");
-        } else {
-            // Read the files
-            for (var i = 0; i < files_raw.length; i++) {
-                var file = files_raw[i];
-                var reader = new FileReader();
-                reader.f = file;
-                reader.onload = list;
-                reader.readAsArrayBuffer(file);
-            }
-            // Since file reading is done asynchronously, we periodically check for
-            // the palette's availability until it's ready.
-            check_palette();
-        }
+        load_palette(fileInput.files)
     });
 
     // Rendering stuff
