@@ -264,7 +264,7 @@ const objects = {
   entityThwomp: [
     { text: "Thwump border.", color: "4D4D4D", sprite: "entityThwomp0.png"},
     { text: "Thwump interior.", color: "798076", sprite: "entityThwomp1.png" },
-    { text: "Thwump ray.", color: "48C1C8" }
+    { text: "Thwump ray.", color: "48C1C8", sprite: "entityThwomp2.png" }
   ],
 
   entityEvilNinja: [
