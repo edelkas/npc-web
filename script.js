@@ -4,98 +4,6 @@
  *
  */
 
-// Color buttons for each section of the GUI
-var sections = [
-    {
-        sectionId: "Objects_Items" ,
-        listId: "list_objects",
-        items: [
-            { name: "Background", objectId: "background" },
-            { name: "Ninja", objectId: "ninja" },
-            { name: "Mine", objectId: "entityMine" },
-            { name: "Gold", objectId: "entityGold" },
-            { name: "Exit Door", objectId: "entityDoorExit" },
-            { name: "Exit Switch", objectId: "entityDoorExitSwitch" },
-            { name: "Regular Door", objectId: "entityDoorRegular" },
-            { name: "Locked Door", objectId: "entityDoorLocked" },
-            { name: "Trap Door", objectId: "entityDoorTrap" },
-            { name: "Launchpad", objectId: "entityLaunchPad" },
-            { name: "One-way Platform", objectId: "entityOneWayPlatform" },
-            { name: "Chaingun Drone", objectId: "entityDroneChaingun" },
-            { name: "Laser Drone", objectId: "entityDroneLaser" },
-            { name: "Zap Drones", objectId: "entityDroneZap" },
-            { name: "Chaser Drone", objectId: "entityDroneChaser" },
-            { name: "Floorguard", objectId: "entityFloorGuard" },
-            { name: "Bounce Block", objectId: "entityBounceBlock" },
-            { name: "Rocket Turret", objectId: "entityRocket" },
-            { name: "Gauss Turret", objectId: "entityTurret" },
-            { name: "Thwump", objectId: "entityThwomp" },
-            { name: "Evil Ninja", objectId: "entityEvilNinja" },
-            { name: "Laser Turret", objectId: "entityDualLaser" },
-            { name: "Boost Pad", objectId: "entityBoostPad" },
-            { name: "Deathball", objectId: "entityBat" },
-            { name: "Mini (Eyebat)", objectId: "entityEyeBat" },
-            { name: "Shove Thwump", objectId: "entityShoveThwomp" },
-        ]
-    },
-    {
-        sectionId: "Menu_Items",
-        listId: "list_menu",
-        items: [
-            { name: "Basic Menus", objectId: "menuGeneral" },
-            { name: "Menu Tabs", objectId: "menuTabs" },
-            { name: "Leaderboards", objectId: "menuLeaderboards" },
-            { name: "Episode Grid", objectId: "menuEpisodes" },
-            { name: "Pause Menu", objectId: "menuPause" },
-            { name: "Profile", objectId: "menuProfile" },
-            { name: "Other Texts", objectId: "menuOther" },
-            { name: "Unknown", objectId: "menuUnknown" },
-        ]
-    },
-    {
-        sectionId: "Editor_Items",
-        listId: "list_editor",
-        items: [
-            { name: "Lines", objectId: "editorLines" },
-            { name: "Selections", objectId: "editorSelections" },
-            { name: "Unknown", objectId: "editorUnknown" },
-        ]
-    },
-    {
-        sectionId: "Timebar_Items",
-        listId: "list_timebar",
-        items: [
-            { name: "Basic Timebar", objectId: "timeBarBasic" },
-            { name: "Race Timebar (P1)*", objectId: "timeBarRace1" },
-            { name: "Race Timebar (P2)", objectId: "timeBarRace2" },
-            { name: "Race Timebar (P3)", objectId: "timeBarRace3" },
-            { name: "Race Timebar (P4)", objectId: "timeBarRace4" },
-            { name: "Unknown", objectId: "timeBarUnknown" },
-        ]
-    },
-    {
-        sectionId: "Headbands_Items",
-        listId: "list_headbands",
-        items: [
-            { name: "Headbands", objectId: "headbandsBasic" },
-            { name: "Unknown", objectId: "headbandsUnknown1" },
-            { name: "Unknowner", objectId: "headbandsUnknown2" },
-            { name: "Unknownest", objectId: "headbandsUnknown3" },
-        ]
-    },
-    {
-        sectionId: "Effects_Items",
-        listId: "list_effects",
-        items: [
-            { name: "Explosions", objectId: "explosions" },
-            { name: "Drone BZZT", objectId: "fxDroneZap" },
-            { name: "Floorguard BZZT", objectId: "fxFloorguardZap" },
-            { name: "Ground Dust", objectId: "fxNinja" }
-        ]
-    }
-]
-
-
 // File strings
 var files = {};
 var files_loaded = {};
@@ -103,16 +11,17 @@ var files_loaded = {};
 var images_loaded = {};
 
 var sprite_canvas, ctx, currentSection;
+var metanet_palettes;
 
 // Creates the buttons of each section, on load
-function create_button(i, name, objectId, listId, sectionId) {
-    var colors = objects[objectId];
+function create_button(i, label, filename, indices, listId, sectionId) {
+    var colors = cget(filename, indices)
     var list = document.getElementById(listId)
     var section = document.getElementById(sectionId);
     var areaId = "i" + i;
 
     var li = document.createElement("li");
-    var title = document.createTextNode(name);
+    var title = document.createTextNode(label);
     li.appendChild(title);
     li.id = "l" + i
     li.classList = "item"
@@ -131,10 +40,10 @@ function create_button(i, name, objectId, listId, sectionId) {
         var inputDiv = document.createElement("div");
         inputDiv.className = "picker-col";
         var input = document.createElement("input");
-        var inputId = objectId + j
+        const idx = indices ? indices[j] : j
+        var inputId = filename + idx
         input.id = inputId;
         input.classList = "jscolor {onFineChange:'redrawCanvas(this)'}";
-        input.value = colors[j]["color"];
         inputDiv.appendChild(input);
 
         var textDiv = document.createElement("div");
@@ -173,8 +82,9 @@ function create_buttons() {
             var item = section.items[i]
             create_button(
                 count,
-                item.name,
-                item.objectId,
+                item.label,
+                item.filename,
+                item.indices,
                 section.listId,
                 section.sectionId,
             );
@@ -366,77 +276,122 @@ function check_palette() {
     }
 }
 
-function init_stuff_onload() {
-	// Populate Metanet Palettes dropdown list
-	// var fileInput3 = document.getElementById('file3');
-    // fileInput3.addEventListener('change', function(e) {
-	// 	//////////////////// NOT WORKING
-	// 	console.log('hei');
-	// 	//var dateBefore = new Date();
-	// 	var f = fileInput3.files[0]
-	// 	console.log(f);
-	// 	JSZip.loadAsync(f)                                   // 1) read the Blob
-	// 		.then(function(zip) {
-	// 			var dateAfter = new Date();
-	// 			//$title.append($("<span>", {
-	// 			//    "class": "small",
-	// 			//    text:" (loaded in " + (dateAfter - dateBefore) + "ms)"
-	// 			//}));
+function populate_metanet_dropdown () {
+    // Populate Metanet Palettes dropdown list
+    metanet_palettes
+        .then(files => {
+            const palette_names = []
+            files.forEach((_, file) => {
+                if (file.dir) {
+                    palette_names.push(file.name.slice(0, -1))
+                }
+            })
+            palette_names.sort((a, b) => {
+                return (a.toLowerCase() > b.toLowerCase()) ? 1 : -1
+            })
 
-	// 			zip.forEach(function (relativePath, zipEntry) {  // 2) print entries
-	// 				var dpal = document.getElementById("dpal");
-	// 				dpal.innerHTML += '<option value="'+zipEntry.name+'">'+zipEntry.name+'</option>';
-	// 			});
-	// 		}, function (e) {
-	// 			console.log(e.message);
-	// 		});
-	// });
+            const fileInput3 = document.getElementById('file3');
+            const dpal = document.getElementById("dpal");
+
+            palette_names.forEach(name => {
+                const opt = document.createElement("option")
+                const text = document.createTextNode(name)
+                opt.appendChild(text)
+                opt.value = name
+                dpal.appendChild(opt)
+            })
+
+            fileInput3.addEventListener('click', (e) => {
+                const val = dpal.value
+                log(`Info: Loading palette "${val}"...`)
+                load_zipped_palette(val)
+            })
+        })
+}
+
+function load_palette (aux) {
+    files = {};
+    files_loaded = {};
+    // Retrieve selected files
+    var files_raw = [];
+    for (var i = 0; i < aux.length; i++) {
+        files_raw[i] = aux[i];
+    }
+    // Remove extraneous files
+    var objs = Object.keys(objects);
+    for (var i = 0; i < files_raw.length; i++) {
+        var end_index = files_raw[i].name.length - 4;
+        var filename = files_raw[i].name.substring(0, end_index);
+        if (!objs.includes(filename)) {
+            files_raw.splice(i, 1);
+        }
+    }
+    // Check for existence of all palette files
+    var filenames = [];
+    for (var i = 0; i < files_raw.length; i++) { filenames.push(files_raw[i].name); }
+    var inexistant = [];
+    var inex_count = 0;
+    for (var i = 0; i < objs.length; i++) {
+        if (!filenames.includes(objs[i] + ".tga")) {
+            inexistant.push(objs[i] + ".tga");
+            inex_count += 1;
+        }
+    }
+    // Proceed only if all files were correct
+    if (inex_count > 0) {
+        // Clean files
+        alert("Missing files:\n\n" + inexistant.join("\n"));
+        log("Error loading palette: Missing " + inex_count.toString() + " files.");
+    } else {
+        // Read the files
+        for (var i = 0; i < files_raw.length; i++) {
+            var file = files_raw[i];
+            var reader = new FileReader();
+            reader.f = file;
+            reader.onload = list;
+            reader.readAsArrayBuffer(file);
+        }
+        // Since file reading is done asynchronously, we periodically check for
+        // the palette's availability until it's ready.
+        check_palette();
+    }
+}
+
+function load_zipped_palette (palette_name) {
+    metanet_palettes
+        .then(function (zip) {
+            const keys = Object.keys(objects);
+            return Promise.all(keys.map(key => {
+                const filename = key + ".tga"
+                return zip.folder(palette_name).file(filename).async("blob")
+                    .then(blob => {
+                        return new File([blob], filename)
+                    })
+            }))
+        })
+        .then(load_palette)
+}
+
+function init_stuff_onload() {
+    // fetch ZIP of metanet palettes
+    log("Info: Fetching metanet palettes...")
+    metanet_palettes = fetch('https://edelkas.github.io/npc-web/metanet_palettes/metanet_palettes.zip')
+        .then(function (response) {
+            return (response.status === 200 || response.status === 0)
+                ? Promise.resolve(response.blob())
+                : Promise.reject(new Error(response.statusText))
+        })
+        .then(JSZip.loadAsync)
+        .then(function(zip) {
+            load_zipped_palette("vasquez")
+            populate_metanet_dropdown()
+            return zip
+        })
 
     // Listener to Load Palette (35 .tga files)
     var fileInput = document.getElementById('file');
     fileInput.addEventListener('change', function(e) {
-		files = {};
-		files_loaded = {};
-        // Retrieve selected files
-        var aux = fileInput.files;
-        var files_raw = [];
-        for (var i = 0; i < aux.length; i++) { files_raw[i] = aux[i]; }
-        // Remove extraneous files
-        var objs = Object.keys(objects);
-        for (var i = 0; i < files_raw.length; i++) {
-            var end_index = files_raw[i].name.length - 4;
-            var filename = files_raw[i].name.substring(0, end_index);
-            if (!objs.includes(filename)) { files_raw.splice(i, 1); }
-        }
-        // Check for existence of all palette files
-        var filenames = [];
-        for (var i = 0; i < files_raw.length; i++) { filenames.push(files_raw[i].name); }
-        var inexistant = [];
-        var inex_count = 0;
-        for (var i = 0; i < objs.length; i++) {
-            if (!filenames.includes(objs[i] + ".tga")) {
-                inexistant.push(objs[i] + ".tga");
-                inex_count += 1;
-            }
-        }
-        // Proceed only if all files were correct
-        if (inex_count > 0) {
-            // Clean files
-            alert("Missing files:\n\n" + inexistant.join("\n"));
-            log("Error loading palette: Missing " + inex_count.toString() + " files.");
-        } else {
-            // Read the files
-            for (var i = 0; i < files_raw.length; i++) {
-                var file = files_raw[i];
-                var reader = new FileReader();
-                reader.f = file;
-                reader.onload = list;
-                reader.readAsArrayBuffer(file);
-            }
-            // Since file reading is done asynchronously, we periodically check for
-            // the palette's availability until it's ready.
-            check_palette();
-        }
+        load_palette(fileInput.files)
     });
 
     // Rendering stuff
