@@ -4,98 +4,6 @@
  *
  */
 
-// Color buttons for each section of the GUI
-var sections = [
-    {
-        sectionId: "Objects_Items" ,
-        listId: "list_objects",
-        items: [
-            { name: "Background", objectId: "background" },
-            { name: "Ninja", objectId: "ninja" },
-            { name: "Mine", objectId: "entityMine" },
-            { name: "Gold", objectId: "entityGold" },
-            { name: "Exit Door", objectId: "entityDoorExit" },
-            { name: "Exit Switch", objectId: "entityDoorExitSwitch" },
-            { name: "Regular Door", objectId: "entityDoorRegular" },
-            { name: "Locked Door", objectId: "entityDoorLocked" },
-            { name: "Trap Door", objectId: "entityDoorTrap" },
-            { name: "Launchpad", objectId: "entityLaunchPad" },
-            { name: "One-way Platform", objectId: "entityOneWayPlatform" },
-            { name: "Chaingun Drone", objectId: "entityDroneChaingun" },
-            { name: "Laser Drone", objectId: "entityDroneLaser" },
-            { name: "Zap Drones", objectId: "entityDroneZap" },
-            { name: "Chaser Drone", objectId: "entityDroneChaser" },
-            { name: "Floorguard", objectId: "entityFloorGuard" },
-            { name: "Bounce Block", objectId: "entityBounceBlock" },
-            { name: "Rocket Turret", objectId: "entityRocket" },
-            { name: "Gauss Turret", objectId: "entityTurret" },
-            { name: "Thwump", objectId: "entityThwomp" },
-            { name: "Evil Ninja", objectId: "entityEvilNinja" },
-            { name: "Laser Turret", objectId: "entityDualLaser" },
-            { name: "Boost Pad", objectId: "entityBoostPad" },
-            { name: "Deathball", objectId: "entityBat" },
-            { name: "Mini (Eyebat)", objectId: "entityEyeBat" },
-            { name: "Shove Thwump", objectId: "entityShoveThwomp" },
-        ]
-    },
-    {
-        sectionId: "Menu_Items",
-        listId: "list_menu",
-        items: [
-            { name: "Basic Menus", objectId: "menuGeneral" },
-            { name: "Menu Tabs", objectId: "menuTabs" },
-            { name: "Leaderboards", objectId: "menuLeaderboards" },
-            { name: "Episode Grid", objectId: "menuEpisodes" },
-            { name: "Pause Menu", objectId: "menuPause" },
-            { name: "Profile", objectId: "menuProfile" },
-            { name: "Other Texts", objectId: "menuOther" },
-            { name: "Unknown", objectId: "menuUnknown" },
-        ]
-    },
-    {
-        sectionId: "Editor_Items",
-        listId: "list_editor",
-        items: [
-            { name: "Lines", objectId: "editorLines" },
-            { name: "Selections", objectId: "editorSelections" },
-            { name: "Unknown", objectId: "editorUnknown" },
-        ]
-    },
-    {
-        sectionId: "Timebar_Items",
-        listId: "list_timebar",
-        items: [
-            { name: "Basic Timebar", objectId: "timeBarBasic" },
-            { name: "Race Timebar (P1)*", objectId: "timeBarRace1" },
-            { name: "Race Timebar (P2)", objectId: "timeBarRace2" },
-            { name: "Race Timebar (P3)", objectId: "timeBarRace3" },
-            { name: "Race Timebar (P4)", objectId: "timeBarRace4" },
-            { name: "Unknown", objectId: "timeBarUnknown" },
-        ]
-    },
-    {
-        sectionId: "Headbands_Items",
-        listId: "list_headbands",
-        items: [
-            { name: "Headbands", objectId: "headbandsBasic" },
-            { name: "Unknown", objectId: "headbandsUnknown1" },
-            { name: "Unknowner", objectId: "headbandsUnknown2" },
-            { name: "Unknownest", objectId: "headbandsUnknown3" },
-        ]
-    },
-    {
-        sectionId: "Effects_Items",
-        listId: "list_effects",
-        items: [
-            { name: "Explosions", objectId: "explosions" },
-            { name: "Drone BZZT", objectId: "fxDroneZap" },
-            { name: "Floorguard BZZT", objectId: "fxFloorguardZap" },
-            { name: "Ground Dust", objectId: "fxNinja" }
-        ]
-    }
-]
-
-
 // File strings
 var files = {};
 var files_loaded = {};
@@ -105,14 +13,14 @@ var images_loaded = {};
 var sprite_canvas, ctx, currentSection;
 
 // Creates the buttons of each section, on load
-function create_button(i, name, objectId, listId, sectionId) {
-    var colors = objects[objectId];
+function create_button(i, label, filename, indices, listId, sectionId) {
+    var colors = cget(filename, indices)
     var list = document.getElementById(listId)
     var section = document.getElementById(sectionId);
     var areaId = "i" + i;
 
     var li = document.createElement("li");
-    var title = document.createTextNode(name);
+    var title = document.createTextNode(label);
     li.appendChild(title);
     li.id = "l" + i
     li.classList = "item"
@@ -131,7 +39,8 @@ function create_button(i, name, objectId, listId, sectionId) {
         var inputDiv = document.createElement("div");
         inputDiv.className = "picker-col";
         var input = document.createElement("input");
-        var inputId = objectId + j
+        const idx = indices ? indices[j] : j
+        var inputId = filename + idx
         input.id = inputId;
         input.classList = "jscolor {onFineChange:'redrawCanvas(this)'}";
         input.value = colors[j]["color"];
@@ -173,8 +82,9 @@ function create_buttons() {
             var item = section.items[i]
             create_button(
                 count,
-                item.name,
-                item.objectId,
+                item.label,
+                item.filename,
+                item.indices,
                 section.listId,
                 section.sectionId,
             );
@@ -188,7 +98,9 @@ function create_buttons() {
 // Update value of variables with selected colors from colorpickers
 function update_buttons() {
     for (var o in objects) {
+        console.info({ o })
         for (var j = 0; j < objects[o].length; j++) {
+            console.info(o + j)
             //if (document.getElementById(o+j) === null) { console.log(o+j); }
             objects[o][j]["color"] = document.getElementById(o + j).value;
         }
