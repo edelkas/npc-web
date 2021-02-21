@@ -301,12 +301,11 @@ function populate_metanet_dropdown () {
                 dpal.appendChild(opt)
             })
 
-            fileInput3.addEventListener('change', (e) => {
-                const val = e.target.value
-                console.info({ val })
-                load_palette(val)
+            fileInput3.addEventListener('click', (e) => {
+                const val = dpal.value
+                log(`Info: Loading palette "${val}"...`)
+                load_zipped_palette(val)
             })
-
         })
 }
 
@@ -375,6 +374,7 @@ function load_zipped_palette (palette_name) {
 
 function init_stuff_onload() {
     // fetch ZIP of metanet palettes
+    log("Info: Fetching metanet palettes...")
     metanet_palettes = fetch('https://edelkas.github.io/npc-web/metanet_palettes/metanet_palettes.zip')
         .then(function (response) {
             return (response.status === 200 || response.status === 0)
