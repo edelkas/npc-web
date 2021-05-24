@@ -289,7 +289,7 @@ const objects = {
   ],
 
   entityEyeBat: [
-    { text: "Mini background.", sprite: "1A-1.png" },
+    { text: "Mini background (and QWEASD letters in editor).", sprite: "1A-1.png" },
     { text: "Mini eye.", sprite: "1A-0.png" }
   ],
 
