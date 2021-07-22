@@ -90,7 +90,7 @@ const objects = {
     { text: "Uncompleted episode text (see 31)." },
     { text: "Bottom info text (key controls, \"paint tiles\" in editor, etc.)." },
     { text: "Leaderboard tabs background, unselected (see 27)." },
-    { text: "Leaderboard tabs background, selected (see 26). Also leaderboard tabs text, selected (see 28)." },
+    { text: "Leaderboard tabs background, selected (see 26)." },
     { text: "Leaderboard tabs text, unselected (see 27)." },
     { text: "Level name when playing." },
     { text: "\"Color / Music\" selected option; \"Social\" menu option names (see 18)." },
