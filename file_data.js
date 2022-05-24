@@ -64,7 +64,7 @@ const objects = {
   ],
 
   menu: [
-    { text: "General UI background." },
+    { text: "General UI background. Empty space when game doesn't fit screen resolution." },
     { text: "Leaderboard: Background. Editor: Side panel background (darkened later)." },
     { text: "Leaderboard: Other player's scores, your rank (see 14, 17). Also, race options text. Editor side panel: Unselected text." },
     { text: "\"Color / Music\" and \"Social\" menu panels background." },
@@ -155,7 +155,7 @@ const objects = {
 
   entityGold: [
     { text: "Gold interior.", sprite: "entityGold0.png" },
-    { text: "Gold exterior.", sprite: "entityGold1.png", outline: true },
+    { text: "Gold exterior. Golden blood color.", sprite: "entityGold1.png", outline: true },
     { text: "Gold shine.", sprite: "entityGold2.png" }
   ],
 
@@ -254,15 +254,15 @@ const objects = {
   ],
 
   entityTurret: [
-    { text: "Gauss turret interior.", sprite: "13-0.png"  },
-    { text: "Gauss turret border.", sprite: "13-1.png"  },
-    { text: "Gauss turret aiming cross."  },
+    { text: "Gauss turret interior.", sprite: "13-0.png" },
+    { text: "Gauss turret border.", sprite: "13-1.png" },
+    { text: "Gauss turret aiming cross." },
     { text: "Gauss turret bullet." },
     { text: "Gauss turret squiggly lines." }
   ],
 
   entityThwomp: [
-    { text: "Thwump border.", sprite: "entityThwomp0.png"},
+    { text: "Thwump border.", sprite: "entityThwomp0.png" },
     { text: "Thwump interior.", sprite: "entityThwomp1.png" },
     { text: "Thwump ray.", sprite: "entityThwomp2.png" }
   ],
@@ -294,13 +294,13 @@ const objects = {
   ],
 
   entityShoveThwomp: [
-    { text: "Shove thwump interior.", sprite: "1C-0.png"  },
+    { text: "Shove thwump interior.", sprite: "1C-0.png" },
     { text: "Shove thwump ray.", sprite: "1C-1.png" },
-    { text: "Shove thwump armor.", sprite: "1C-2.png"}
+    { text: "Shove thwump armor.", sprite: "1C-2.png" }
   ]
 }
 
-function cget (filename, indices) {
+function cget(filename, indices) {
   const file = objects[filename]
   if (!indices) {
     return file
