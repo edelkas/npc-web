@@ -13,6 +13,8 @@ var images_loaded = {};
 var sprite_canvas, ctx, currentSection;
 var metanet_palettes;
 
+var dark_theme = false;
+
 // Creates the buttons of each section, on load
 function create_button(i, label, filename, indices, listId, sectionId) {
     var colors = cget(filename, indices)
@@ -207,7 +209,7 @@ function tab(item, type) {
 
 function toggle_theme() {
     [
-        "body", ".menu", ".styled-button"
+        "body", ".menu", ".styled-button", ".full-page", "[role='listbox']", "[role='option']", "select"
     ].forEach(
         function(q){
             document.querySelectorAll(q).forEach(
@@ -218,7 +220,8 @@ function toggle_theme() {
         }
     );
     document.querySelector("#Dark").innerHTML = "Dark";
-    document.querySelector("#Dark.dark").innerHTML = "Light";
+    try { document.querySelector("#Dark.dark").innerHTML = "Light"; } catch(e) {}
+    dark_theme = !dark_theme;
 }
 
 /**

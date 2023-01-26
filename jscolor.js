@@ -1013,7 +1013,8 @@ var jsc = {
 		this.buttonColor = '#000000'; // CSS color
 		this.buttonHeight = 18; // px
 		this.padding = 12; // px
-		this.backgroundColor = '#FFFFFF'; // CSS color
+		this.backgroundColor = '#FFF'; // CSS color
+		this.backgroundColorDark = '#111'; // CSS color for dark theme
 		this.borderWidth = 1; // px
 		this.borderColor = '#BBBBBB'; // CSS color
 		this.borderRadius = 8; // px
@@ -1465,7 +1466,7 @@ var jsc = {
 			p.boxB.style.position = 'relative';
 			p.boxB.style.border = THIS.borderWidth + 'px solid';
 			p.boxB.style.borderColor = THIS.borderColor;
-			p.boxB.style.background = THIS.backgroundColor;
+			p.boxB.style.background = dark_theme ? THIS.backgroundColorDark : THIS.backgroundColor;
 			jsc.setBorderRadius(p.boxB, borderRadius + 'px');
 
 			// IE hack:

@@ -97,6 +97,10 @@ body.dark {
     align-items: center;
 }
 
+.full-page.dark {
+    background-color: #222;
+}
+
 .page {
     display: none;
     flex: 1 1 50%;
@@ -131,12 +135,16 @@ body.dark {
 [role="listbox"] {
     min-height: 24em;
     padding: 0;
-    background: white;
+    background-color: white;
     border: 1px solid #aaa;
     max-height: 24em;
     overflow-y: auto;
     position: relative;
     margin: 0;
+}
+
+[role="listbox"].dark {
+    background-color: #111;
 }
 
 [role="option"] {
@@ -147,10 +155,49 @@ body.dark {
     /* line-height: 1em; */
 }
 
-[role="option"].focused {
-    background: #bde4ff;
+[role="option"]:hover {
+    background-color: #eee;
 }
 
+[role="option"]:hover.dark {
+    background-color: #222;
+}
+
+[role="option"].focused {
+    background: #ddd;
+}
+
+[role="option"].focused.dark {
+    background: #333;
+}
+
+/* Links */
+
+a {
+    color: rgb(202, 172, 0);
+}
+
+/* Select menus */
+
+select {
+    color: #000;
+    background-color: #fff;
+}
+
+select.dark {
+    color: #eee;
+    background-color: #111;
+}
+
+option {
+    color: #000;
+    background-color: #eee;
+}
+
+option.dark {
+    color: #eee;
+    background-color: #222;
+}
 
 /* Footer */
 
