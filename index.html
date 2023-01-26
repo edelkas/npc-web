@@ -21,9 +21,10 @@
 <body>
     <h1>N++ Palette Creator</h1>
     <div class="menu">
-        <button class="tab" onclick="tab('About', 'tab')" id="bAbout">About</button>
-		<button class="tab" onclick="tab('Load', 'tab')" id="bLoad">Import</button>
-        <button id="Download" onclick="create_palette()">Export</button>
+        <button class="styled-button tab" onclick="tab('About', 'tab')" id="bAbout">About</button>
+		<button class="styled-button tab" onclick="tab('Load', 'tab')" id="bLoad">Import</button>
+        <button class="styled-button" onclick="create_palette()" id="Download" >Export</button>
+        <button class="styled-button" onclick="toggle_theme()" id="Dark" >Dark</button>
     </div>
     <div class="main-area">
         <div class="full-page">
@@ -109,24 +110,24 @@
 			<label for="default_palettes">Pick a Metanet Palette:</label>
 			<select id="dpal"></select>
 			<br /><br />
-			<button id="file3" type="button">Load Metanet Palette</button>
+			<button id="file3" class="styled-button" type="button">Load Metanet Palette</button>
 			<br /><br />
 			<!-- todo: drop down box listing all default palettes from Palettes.zip -->
             <!-- <h3>Custom Palettes</h3> -->
 			<!-- todo: drop down box listing all default palettes from allpalettes.zip -->
             <h3>Custom</h3>
 			<input id="file" type="file" name="file" class="inputfile" multiple="multiple">
-			<label for="file">Load Palette (35 .tga files)</label>
+			<label for="file" class="styled-button">Load Palette (35 .tga files)</label>
 			<br /><br /><br />
         </div>
     </div>
     <div class="menu">
-		<button class="tab" onclick="tab('Objects', 'tab')" id="bObjects">Objects</button>
-        <button class="tab" onclick="tab('Menu', 'tab')" id="bMenu">Menu</button>
-        <button class="tab" onclick="tab('Editor', 'tab')" id="bEditor">Editor</button>
-        <button class="tab" onclick="tab('Timebar', 'tab')" id="bTimebar">Timebar</button>
-        <button class="tab" onclick="tab('Headbands', 'tab')" id="bHeadbands">Headbands</button>
-        <button class="tab" onclick="tab('Effects', 'tab')" id="bEffects">Effects</button>
+		<button class="styled-button tab" onclick="tab('Objects', 'tab')" id="bObjects">Objects</button>
+        <button class="styled-button tab" onclick="tab('Menu', 'tab')" id="bMenu">Menu</button>
+        <button class="styled-button tab" onclick="tab('Editor', 'tab')" id="bEditor">Editor</button>
+        <button class="styled-button tab" onclick="tab('Timebar', 'tab')" id="bTimebar">Timebar</button>
+        <button class="styled-button tab" onclick="tab('Headbands', 'tab')" id="bHeadbands">Headbands</button>
+        <button class="styled-button tab" onclick="tab('Effects', 'tab')" id="bEffects">Effects</button>
 	</div>
     <a download="info" id="downloadlink" style="display: none"></a>
     <pre id="fileDisplayArea"></pre>

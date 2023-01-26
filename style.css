@@ -1,19 +1,32 @@
 /* Horizontal tabs */
 
+body {
+    color: black;
+    background-color: white;
+}
+
+body.dark {
+    color: #eee;
+    background-color: #111;
+}
+
 .menu {
     overflow: hidden;
     border: 1px solid #ccc;
-    background-color: #f1f1f1;
+    background-color: #eee;
 }
 
-.menu button,
-.inputfile+label {
+.menu.dark {
+    background-color: #222;
+}
+
+.styled-button {
     font-family: sans-serif;
     font-size: 0.9em;
     font-weight: 500;
     color: #555;
     text-decoration: none;
-    background-color: inherit;
+    background-color: #eee;
     float: left;
     border: none;
     outline: none;
@@ -22,12 +35,25 @@
     transition: 0s;
 }
 
-.menu button:hover {
+.styled-button.dark {
+    color: #eee;
+    background-color: #222;
+}
+
+.styled-button:hover {
     background-color: #ddd;
 }
 
-.menu button.active {
+.styled-button:hover.dark {
+    background-color: #333;
+}
+
+.styled-button.active {
 	background-color: #ccc;
+}
+
+.styled-button.active.dark {
+    background-color: #444;
 }
 
 .inputfile {
@@ -38,16 +64,6 @@
     position: absolute;
     z-index: -1;
 }
-
-.inputfile+label {
-	background-color: #ccc;
-}
-
-.inputfile:focus+label,
-.inputfile+label:hover {
-    background-color: #ddd;
-}
-
 
 /* Listbox */
 

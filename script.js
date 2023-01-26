@@ -195,19 +195,30 @@ function tab(item, type) {
             document.getElementsByClassName("full-page")[0].style.display = "flex";
         }
 
-		// un-highlight all tab menu buttons
-		btns = document.getElementsByClassName("tab");
-		//console.log(btns);
-		for (i = 0; i < btns.length; i++) {
-			btns[i].classList = 'tab';
-		}
-		// highlight the tab menu button we have activated
-		var b = document.getElementById('b'+item);
-		b.classList = 'tab active';
+		// change highlighted tab button
+		Array.from(document.getElementsByClassName("tab")).forEach(function(e){
+            e.id == 'b' + item ? e.classList.add('active') : e.classList.remove('active');
+        });
 
     }
 	// redraw canvas TODO: only redraw when it's being displayed
     redrawCanvas()
+}
+
+function toggle_theme() {
+    [
+        "body", ".menu", ".styled-button"
+    ].forEach(
+        function(q){
+            document.querySelectorAll(q).forEach(
+                function(e){
+                    e.classList.toggle('dark');
+                }
+            )
+        }
+    );
+    document.querySelector("#Dark").innerHTML = "Dark";
+    document.querySelector("#Dark.dark").innerHTML = "Light";
 }
 
 /**
