@@ -289,8 +289,8 @@ const objects = {
   ],
 
   entityEyeBat: [
-    { text: "Mini background (and QWEASD letters in editor).", sprite: "1A-1.png" },
-    { text: "Mini eye.", sprite: "1A-0.png" }
+    { text: "Mini background. Editor: QWEASD letters.", sprite: "1A-1.png" },
+    { text: "Mini eye (gets merged with the background). Editor: Entity menu hotkeys.", sprite: "1A-0.png" }
   ],
 
   entityShoveThwomp: [
