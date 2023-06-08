@@ -283,8 +283,8 @@ const objects = {
   ],
 
   entityBat: [
-    { text: "Deathball inner dot.", sprite: "19-0.png" },
-    { text: "Deathball middle circle.", sprite: "19-1.png" },
+    { text: "Deathball inner dot. Part of deathball's zap.", sprite: "19-0.png" },
+    { text: "Deathball middle circle. Part of deathball's zap.", sprite: "19-1.png" },
     { text: "Deathball outer circle.", sprite: "19-2.png" }
   ],
 
